@@ -1,16 +1,27 @@
+import {downloadAllAssets, getAsset} from "./manageAssets.js"
+
 const canvas = document.querySelector('canvas');
 const ctx = canvas.getContext('2d'); 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
-const image = document.getElementById('source');
-const image2 = document.getElementById('source2');
+// Moze se mijenjati value za velicinu mape
+const MAP_SIZE = 3000;
+
+let image = {};
+let image2 = {};
+
+async function setup(){
+	await downloadAllAssets();
+	image = getAsset("tankBase.png")
+	image2 = getAsset("tankTurret.png")
+}
 
 const player = {
   w: 50,
   h: 70,
-  x: 20,
-  y: 200,
+  x: 10,
+  y: 10,
   speed: 10,
   dx: 0,
   dy: 0
@@ -40,8 +51,16 @@ class Projectile {
 }
 
 function drawPlayer() {
-  ctx.drawImage(image, player.x, player.y, player.w, player.h);
-  ctx.drawImage(image2, player.x, player.y, player.w, player.h);
+	let canvasx = canvas.width / 2 - player.x;
+	let canvasy = canvas.height / 2 - player.y;
+
+	ctx.save()
+	ctx.translate(canvasx, canvasy)
+
+	ctx.drawImage(image, player.x, player.y, player.w, player.h);
+	ctx.drawImage(image2, player.x, player.y, player.w, player.h);
+
+	ctx.restore()
 }
 
 function clear() {
@@ -55,8 +74,8 @@ function detectWalls() {
   }
 
   // Right Wall
-  if (player.x + player.w > canvas.width) {
-    player.x = canvas.width - player.w;
+  if (player.x + player.w > MAP_SIZE) {
+    player.x = MAP_SIZE - player.w;
   }
 
   // Top wall
@@ -65,8 +84,8 @@ function detectWalls() {
   }
 
   // Bottom Wall
-  if (player.y + player.h > canvas.height) {
-    player.y = canvas.height - player.h;
+  if (player.y + player.h > MAP_SIZE) {
+    player.y = MAP_SIZE - player.h;
   }
 }
 
@@ -122,6 +141,7 @@ const projectiles = []
 
     clear();
     drawPlayer();
+	ctx.strokeRect(canvas.width / 2 - player.x, canvas.height / 2 - player.y, MAP_SIZE, MAP_SIZE);
     
     if (keyD == true) {
       player.x += player.speed;
@@ -141,17 +161,26 @@ const projectiles = []
       projectile.update()
     })
   }
-animate()
 
 addEventListener("keydown", onKeyDown, false);
 addEventListener("keyup", onKeyUp, false);
+//vise ne radi? :(
+/*
 addEventListener("click", (event) => {
-  const angle = Math.atan2(event.clientY - (player.y + player.h / 2), event.clientX - (player.x + player.w / 2))
+  const angle = Math.atan2(canvas.height / 2 - event.clientY, canvas.width / 2 - event.clientX)
   console.log(angle)
   const velocity = {
     x: 45 * Math.cos(angle), 
     y: 45 * Math.sin(angle)
   }
 
-  projectiles.push(new Projectile (player.x + player.w / 2, player.y + player.h / 2, 5, 'darkolivegreen', velocity))
+  projectiles.push(new Projectile (canvas.width / 2 - player.x, canvas.height / 2 - player.y, 5, 'darkolivegreen', velocity))
 });
+*/
+
+//TODO prebaciti main neđe drugdje
+async function temp_main(){
+	await setup()
+	animate()
+}
+temp_main();
