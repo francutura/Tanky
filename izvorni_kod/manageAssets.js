@@ -1,7 +1,6 @@
 const _ASSETS = ["tankBase.png", "tankTurret.png", "bullet.png"];
 const assets = {}
 
-
 async function downloadAsset(assetName) {
 	const asset = new Image();
 		asset.onload = () => {
