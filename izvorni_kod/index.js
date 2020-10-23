@@ -88,10 +88,13 @@ function rotateBase(){
     ctx.translate(player.x + player.w/2, player.y + player.h/2)
     ctx.rotate(-Math.PI/2)
     ctx.translate(-player.x - player.w/2, -player.y - player.h/2)
-  } 
+  }
 }
 
 function rotateCannon(){
+  if (keyW == false && keyA == false && keyS == false && keyD == false){
+    LAST_BASE_ROTATION = 0
+  }
   ctx.translate(player.x + player.w/2, player.y + player.h/2)
   ctx.rotate(CANNON_ANGLE + Math.PI/2 - LAST_BASE_ROTATION)
   ctx.translate(-player.x - player.w/2, -player.y - player.h/2)
