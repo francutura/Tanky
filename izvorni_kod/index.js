@@ -7,6 +7,8 @@ canvas.height = innerHeight;
 
 // Moze se mijenjati value za velicinu mape
 const MAP_SIZE = 3000;
+var CANNON_ANGLE = 0;
+var LAST_BASE_ROTATION = 0;
 
 let image = {};
 let image2 = {};
@@ -50,16 +52,62 @@ class Projectile {
     }
 }
 
+function rotateBase(){
+  if(keyW == true && keyD == true) {
+    LAST_BASE_ROTATION = Math.PI/4; 
+    ctx.translate(player.x + player.w/2, player.y + player.h/2)
+    ctx.rotate(Math.PI/4)
+    ctx.translate(-player.x - player.w/2, -player.y - player.h/2)
+  } else if(keyW == true && keyA == true) {
+    LAST_BASE_ROTATION = -Math.PI/4;
+    ctx.translate(player.x + player.w/2, player.y + player.h/2)
+    ctx.rotate(-Math.PI/4)
+    ctx.translate(-player.x - player.w/2, -player.y - player.h/2)
+  } else if(keyS == true && keyD == true) {
+    LAST_BASE_ROTATION = Math.PI * 3/4;
+    ctx.translate(player.x + player.w/2, player.y + player.h/2)
+    ctx.rotate(Math.PI * 3/4)
+    ctx.translate(-player.x - player.w/2, -player.y - player.h/2)
+  } else if(keyS == true && keyA == true) {
+    LAST_BASE_ROTATION = Math.PI* 5/4; 
+    ctx.translate(player.x + player.w/2, player.y + player.h/2)
+    ctx.rotate(Math.PI* 5/4)
+    ctx.translate(-player.x - player.w/2, -player.y - player.h/2)
+  } else if ( keyS == true){
+    LAST_BASE_ROTATION = Math.PI;
+    ctx.translate(player.x + player.w/2, player.y + player.h/2)
+    ctx.rotate(Math.PI)
+    ctx.translate(-player.x - player.w/2, -player.y - player.h/2)
+  } else if(keyD == true) {
+    LAST_BASE_ROTATION = Math.PI/2;
+    ctx.translate(player.x + player.w/2, player.y + player.h/2)
+    ctx.rotate(Math.PI/2)
+    ctx.translate(-player.x - player.w/2, -player.y - player.h/2)
+  } else if(keyA == true) {
+    LAST_BASE_ROTATION = -Math.PI/2;
+    ctx.translate(player.x + player.w/2, player.y + player.h/2)
+    ctx.rotate(-Math.PI/2)
+    ctx.translate(-player.x - player.w/2, -player.y - player.h/2)
+  } 
+}
+
+function rotateCannon(){
+  ctx.translate(player.x + player.w/2, player.y + player.h/2)
+  ctx.rotate(CANNON_ANGLE + Math.PI/2 - LAST_BASE_ROTATION)
+  ctx.translate(-player.x - player.w/2, -player.y - player.h/2)
+}
+
 function drawPlayer() {
 	let canvasx = canvas.width / 2 - player.x;
 	let canvasy = canvas.height / 2 - player.y;
 
 	ctx.save()
-	ctx.translate(canvasx, canvasy)
-
-	ctx.drawImage(image, player.x, player.y, player.w, player.h);
+  ctx.translate(canvasx, canvasy)
+  //Rotacija
+  rotateBase()
+  ctx.drawImage(image, player.x, player.y, player.w, player.h);
+  rotateCannon()
 	ctx.drawImage(image2, player.x, player.y, player.w, player.h);
-
 	ctx.restore()
 }
 
@@ -175,7 +223,13 @@ addEventListener("click", (event) => {
   
   projectiles.push(new Projectile (canvas.width / 2 + player.w / 2, canvas.height / 2 + player.h / 2, 5, 'darkolivegreen', velocity))
 });
-
+addEventListener("mousemove", e => {
+    /*
+    x = e.offsetX;
+    y = e.offsetY;
+    */
+   CANNON_ANGLE = Math.atan2(e.offsetY - (canvas.height / 2 + player.h / 2), e.offsetX - (canvas.width / 2 + player.w / 2))
+})
 
 //TODO prebaciti main neđe drugdje
 async function temp_main(){
