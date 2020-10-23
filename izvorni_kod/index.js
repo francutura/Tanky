@@ -141,6 +141,7 @@ const projectiles = []
 
     clear();
     drawPlayer();
+
 	ctx.strokeRect(canvas.width / 2 - player.x, canvas.height / 2 - player.y, MAP_SIZE, MAP_SIZE);
     
     if (keyD == true) {
@@ -164,19 +165,17 @@ const projectiles = []
 
 addEventListener("keydown", onKeyDown, false);
 addEventListener("keyup", onKeyUp, false);
-//vise ne radi? :(
-/*
-addEventListener("click", (event) => {
-  const angle = Math.atan2(canvas.height / 2 - event.clientY, canvas.width / 2 - event.clientX)
-  console.log(angle)
-  const velocity = {
-    x: 45 * Math.cos(angle), 
-    y: 45 * Math.sin(angle)
-  }
 
-  projectiles.push(new Projectile (canvas.width / 2 - player.x, canvas.height / 2 - player.y, 5, 'darkolivegreen', velocity))
+addEventListener("click", (event) => {
+  const angle = Math.atan2(event.clientY - (canvas.height / 2 + player.h / 2), event.clientX - (canvas.width / 2 + player.w / 2))
+  const velocity = {
+    x: 10 * Math.cos(angle), 
+    y: 10 * Math.sin(angle)
+  }
+  
+  projectiles.push(new Projectile (canvas.width / 2 + player.w / 2, canvas.height / 2 + player.h / 2, 5, 'darkolivegreen', velocity))
 });
-*/
+
 
 //TODO prebaciti main neđe drugdje
 async function temp_main(){
