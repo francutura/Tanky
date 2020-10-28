@@ -1,7 +1,11 @@
-import { getMe, addProjectile } from "./state.js";
-import { Projectile } from "./Projectile.js"
+import { getSocket } from './index.js'
 
-var player;
+const player = {
+	left: false,
+	right: false,
+	backward: false,
+	forward: false
+};
 var canvas = document.querySelector('canvas');
 
 function onKeyDown(event) {
@@ -20,6 +24,13 @@ function onKeyDown(event) {
 			player.forward = true;
 			break;
 	}
+	const emit = {
+		"right": player.right,
+		"left": player.left,
+		"backward": player.backward,
+		"forward": player.forward
+	}
+	getSocket().emit('input', emit);
 }
 
 function onKeyUp(event) {
@@ -39,13 +50,21 @@ function onKeyUp(event) {
 			player.forward = false;
 			break;
 	}
+	const emit = {
+		"left": player.left,
+		"right": player.right,
+		"backward": player.backward,
+		"forward": player.forward
+	}
+	getSocket().emit('input', emit);
 }
 
 
 function initInput(){
-	player = getMe()
 	addEventListener("keydown", onKeyDown, false);
 	addEventListener("keyup", onKeyUp, false);
+	//TODO implement
+	/*
 	addEventListener("click", (event) => {
 	  const angle = Math.atan2(event.clientY - (canvas.height / 2 + player.height / 2), event.clientX - (canvas.width / 2 + player.width / 2))
 	  const velocity = {
@@ -55,9 +74,11 @@ function initInput(){
 	  
 	  addProjectile(new Projectile (canvas.width / 2 + player.width / 2, canvas.height / 2 + player.height / 2, 5, 'darkolivegreen', velocity))
 	});
+	
 	addEventListener("mousemove", e => {
-	   player.CANNON_ANGLE = Math.atan2(e.offsetY - (canvas.height / 2 + player.height / 2), e.offsetX - (canvas.width / 2 + player.width / 2))
+		player.CANNON_ANGLE = Math.atan2(e.offsetY - (canvas.height / 2 + player.height / 2), e.offsetX - (canvas.width / 2 + player.width / 2))
 	})
+	*/
 }
 
 export { initInput }
