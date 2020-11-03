@@ -1,12 +1,29 @@
 const me = {x: 0, y: "0"};
+const others = {}
+
+function setState(update){
+	setMyState(update);
+	setOthersState(update);
+}
 
 function getMyState(){
 	return me;
 }
 
-function setMyState(update){
-	me.x = update['x'];
-	me.y = update['y'];
+function getOthersState(){
+	return others;
 }
 
-export { getMyState, setMyState }
+function setMyState(update){
+	let main = update['me']
+	me.x = main['x'];
+	me.y = main['y'];
+}
+
+function setOthersState(update){
+	update['others'].forEach((other) =>{
+		others[other.id] = other;
+	});
+}
+
+export { getMyState, getOthersState, setState }

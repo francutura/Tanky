@@ -24,6 +24,7 @@ io.on('connection', socket => {
     players[socket.id] = new Tank(socket.id, "test", 10, 10, 20);
 
 	socket.on('input', handleInput);
+	socket.on('shoot', handleShot);
 	socket.on('disconnect', onDisconnect);
 });
 
@@ -43,11 +44,38 @@ function handleInput(input){
 	}
 }
 
+//TODO implement
+function handleShot(input){
+	let socket = this;
+}
+
+//TODO implement
+function getNearbyPlayers(id){
+	temp = []
+	Object.keys(players).forEach(playerID => {
+		if(id != playerID){
+			temp.push(players[playerID].serialize());
+		}
+	});
+	return temp
+}
+
+//TODO implement
+function getNearbyBullets(id){
+	return []
+}
+
 function update(){
 	Object.keys(sockets).forEach(playerID => {
 		const player = players[playerID];
-		const socket = sockets[playerID];
 		player.update(1);
-		socket.emit('update', player.serialize());
+	});
+	Object.keys(sockets).forEach(playerID => {
+		const socket = sockets[playerID];
+		update = {}
+		update['me'] = players[playerID].serialize();
+		update['others'] = getNearbyPlayers(playerID);
+		update['bullets'] = getNearbyBullets(playerID);
+		socket.emit('update', update);
 	});
 }

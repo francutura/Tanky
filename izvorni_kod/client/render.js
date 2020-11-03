@@ -1,4 +1,4 @@
-import { getMyState } from "./state.js"
+import { getMyState, getOthersState } from "./state.js"
 import { getAsset } from "./manageAssets.js"
 
 var canvas = document.querySelector('canvas');
@@ -13,7 +13,7 @@ function clear() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function renderTank(me){
+function renderTank(me, other){
 	let canvasx = canvas.width / 2 - me.x;
 	let canvasy = canvas.height / 2 - me.y;
 
@@ -66,7 +66,11 @@ function animateLoop() {
 
     clear();
 	let me = getMyState();
-	renderTank(me);
+	let others = getOthersState();
+	renderTank(me, me);
+	Object.keys(others).forEach((other) =>{
+		renderTank(me, other);
+	});
 	
 	if (me) {
 		ctx.strokeRect(canvas.width / 2 - me.x, canvas.height / 2 - me.y, MAP_SIZE, MAP_SIZE);
