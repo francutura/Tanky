@@ -20,9 +20,9 @@ function renderTank(me, other){
 	ctx.save()
 	ctx.translate(canvasx, canvasy)
 	//Rotacija
-	//rotateBase(me)
+	rotateBase(me, other)
 	ctx.drawImage(getAsset("tankBase.png"), me.x, me.y, 50, 50);
-	//rotateCannon(me)
+	rotateCannon(me, other)
 	ctx.drawImage(getAsset("tankTurret.png"), me.x, me.y, 50, 50);
 	ctx.restore()
 }
@@ -36,7 +36,7 @@ function renderProjectile(projectile){
 }
 */
 
-function rotateBase(player){
+function rotateBase(player, other){
 	//TODO move to globals
 	let width = 20
 	let height = 20 
@@ -47,9 +47,9 @@ function rotateBase(player){
 	ctx.translate(-player.x - width/2, -player.y - height/2)
 }
 
-function rotateCannon(player){
-	let width = 20
-	let height = 20 
+function rotateCannon(player, other){
+	let width = 50
+	let height = 50 
 	let rotation = player.CANNON_ANGLE
 
 	ctx.translate(player.x + width/2, player.y + height/2)

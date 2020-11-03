@@ -75,10 +75,14 @@ function initInput(){
 	  addProjectile(new Projectile (canvas.width / 2 + player.width / 2, canvas.height / 2 + player.height / 2, 5, 'darkolivegreen', velocity))
 	});
 	
-	addEventListener("mousemove", e => {
-		player.CANNON_ANGLE = Math.atan2(e.offsetY - (canvas.height / 2 + player.height / 2), e.offsetX - (canvas.width / 2 + player.width / 2))
-	})
 	*/
+	addEventListener("mousemove", e => {
+
+		//TODO change constant 50 to global constant player width/height
+		let angle = Math.atan2(e.offsetY - (canvas.height / 2 + 50 / 2), e.offsetX - (canvas.width / 2 + 50 / 2))
+		getSocket().emit('cangle', angle)
+	});
+	
 }
 
 export { initInput }

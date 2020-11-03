@@ -25,6 +25,7 @@ io.on('connection', socket => {
 
 	socket.on('input', handleInput);
 	socket.on('shoot', handleShot);
+	socket.on('cangle', changeCannonAngle);
 	socket.on('disconnect', onDisconnect);
 });
 
@@ -41,6 +42,13 @@ function handleInput(input){
 		let left = input['left'];
 		let right = input['right'];
 		players[socket.id].updateDir(forward, backward, left, right);
+	}
+}
+
+function changeCannonAngle(angle){
+	let socket = this;
+	if (players[socket.id]){
+		players[socket.id].cannona = angle
 	}
 }
 

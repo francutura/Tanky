@@ -10,6 +10,11 @@ class Tank {
 		this.backward = false;
 		this.right = false;
 		this.left = false;
+
+		// Used for rotating tank
+		// body angle and cannon angle
+		this.bodya = 0;
+		this.cannona = 0;
 	}
 
 	updateDir(forward, backward, left, right){
@@ -54,7 +59,9 @@ class Tank {
 		return {
 			id: this.id,
 			x: this.x,
-			y: this.y
+			y: this.y,
+			bodya: this.bodya,
+			cannona: this.cannona,
 		}
 	}
 }
