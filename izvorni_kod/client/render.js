@@ -2,7 +2,8 @@ import { getMyState, getOthersState } from "./state.js"
 import { getAsset } from "./manageAssets.js"
 
 var canvas = document.querySelector('canvas');
-var ctx = canvas.getContext('2d'); 
+var ctx = canvas.getContext('2d');
+//TODO set canvas dimensions 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
@@ -13,17 +14,34 @@ function clear() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function renderTank(me, other){
-	let canvasx = canvas.width / 2 - me.x;
-	let canvasy = canvas.height / 2 - me.y;
+/* function renderTank(me, other){
+	const { x, y, bodyAngle, cannonAngle} = other;
+	let canvasx = canvas.width / 2 + x - me.x;
+	let canvasy = canvas.height / 2 + y - me.y;
 
 	ctx.save()
 	ctx.translate(canvasx, canvasy)
-	//Rotacija
-	rotateBase(me, other)
-	ctx.drawImage(getAsset("tankBase.png"), me.x, me.y, 50, 50);
-	rotateCannon(me, other)
-	ctx.drawImage(getAsset("tankTurret.png"), me.x, me.y, 50, 50);
+	//Rotation
+	//rotateBase(me, other)
+	ctx.drawImage(getAsset("tankBase.png"), -25, -25, 50, 50);
+	//rotateCannon(me, other)
+	ctx.drawImage(getAsset("tankTurret.png"), -25, -25, 50, 50);
+	ctx.restore()
+} */
+
+function renderTank(me, other){
+	
+	const { x, y, bodyAngle, cannonAngle} = other;
+	let canvasx = canvas.width / 2 + x - me.x;
+	let canvasy = canvas.height / 2 + y - me.y;
+	
+	ctx.save()
+	ctx.translate(canvasx, canvasy)
+	//Rotation
+	//rotateBase(me, other)
+	ctx.drawImage(getAsset("tankBase.png"), -25, -25, 50, 50);
+	//rotateCannon(me, other)
+	ctx.drawImage(getAsset("tankTurret.png"), -25, -25, 50, 50);
 	ctx.restore()
 }
 
@@ -42,9 +60,9 @@ function rotateBase(player, other){
 	let height = 20 
 	let rotation = player.BODY_ANGLE
 
-	ctx.translate(player.x + width/2, player.y + height/2)
+	ctx.translate(0 + width/2, 0 + height/2)
 	ctx.rotate(rotation)
-	ctx.translate(-player.x - width/2, -player.y - height/2)
+	ctx.translate(0 - width/2, 0 - height/2)
 }
 
 function rotateCannon(player, other){
@@ -52,9 +70,9 @@ function rotateCannon(player, other){
 	let height = 50 
 	let rotation = player.CANNON_ANGLE
 
-	ctx.translate(player.x + width/2, player.y + height/2)
+	ctx.translate(width/2, height/2)
 	ctx.rotate(rotation + Math.PI/2 - player.BODY_ANGLE)
-	ctx.translate(-player.x - width/2, -player.y - height/2)
+	ctx.translate(- width/2, - height/2)
 }
 
 function animate(){
@@ -68,7 +86,8 @@ function animateLoop() {
 	let me = getMyState();
 	let others = getOthersState();
 	renderTank(me, me);
-	Object.keys(others).forEach((other) =>{
+	console.log(others)
+	Object.values(others).forEach((other) =>{
 		renderTank(me, other);
 	});
 	
