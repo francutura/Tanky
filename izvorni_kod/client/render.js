@@ -86,7 +86,6 @@ function animateLoop() {
 	let me = getMyState();
 	let others = getOthersState();
 	renderTank(me, me);
-	console.log(others)
 	Object.values(others).forEach((other) =>{
 		renderTank(me, other);
 	});
