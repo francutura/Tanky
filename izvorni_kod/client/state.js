@@ -23,6 +23,7 @@ function setMyState(update){
 }
 
 function setOthersState(update){
+	for (var ele in others) delete others[ele];
 	update['others'].forEach((other) =>{
 		others[other.id] = other;
 	});
