@@ -29,14 +29,21 @@ function clear() {
 	ctx.restore()
 } */
 
+function renderUserName(me){
+	ctx.font = "15px Arial"
+	ctx.fillText(me.username, -32, -28);
+}
+
 function renderTank(me, other){
 	
-	const { x, y, bodyAngle, cannonAngle} = other;
+	const { x, y, bodya, cannona, username} = other;
 	let canvasx = canvas.width / 2 + x - me.x;
 	let canvasy = canvas.height / 2 + y - me.y;
 	
 	ctx.save()
 	ctx.translate(canvasx, canvasy)
+	me === other ? renderUserName(me) : renderUserName(other);
+
 	//Rotation
 	//rotateBase(me, other)
 	ctx.drawImage(getAsset("tankBase.png"), -25, -25, 50, 50);
