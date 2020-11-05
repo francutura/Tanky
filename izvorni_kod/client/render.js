@@ -47,7 +47,7 @@ function renderTank(me, other){
 	//Rotation
 	//rotateBase(me, other)
 	ctx.drawImage(getAsset("tankBase.png"), -25, -25, 50, 50);
-	//rotateCannon(me, other)
+	rotateCannon(other)
 	ctx.drawImage(getAsset("tankTurret.png"), -25, -25, 50, 50);
 	ctx.restore()
 }
@@ -65,21 +65,21 @@ function rotateBase(player, other){
 	//TODO move to globals
 	let width = 20
 	let height = 20 
-	let rotation = player.BODY_ANGLE
+	let rotation = player.bodya
 
 	ctx.translate(0 + width/2, 0 + height/2)
 	ctx.rotate(rotation)
 	ctx.translate(0 - width/2, 0 - height/2)
 }
 
-function rotateCannon(player, other){
+function rotateCannon(player){
 	let width = 50
 	let height = 50 
-	let rotation = player.CANNON_ANGLE
+	let rotation = player.cannona
 
-	ctx.translate(width/2, height/2)
-	ctx.rotate(rotation + Math.PI/2 - player.BODY_ANGLE)
-	ctx.translate(- width/2, - height/2)
+	ctx.translate(width/2 - 25, height/2 - 25)
+	ctx.rotate(rotation + Math.PI/2 - player.bodya)
+	ctx.translate(- width/2 + 25, - height/2 + 25)
 }
 
 function animate(){

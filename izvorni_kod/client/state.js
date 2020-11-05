@@ -1,4 +1,4 @@
-const me = {x: 0, y: 0, username:"None", BODY_ANGLE: 0, CANNON_ANGLE: 0};
+const me = {x: 0, y: 0, username:"None", bodya: 0, cannona: 0};
 const others = {}
 
 function setState(update){
@@ -19,8 +19,8 @@ function setMyState(update){
 	me.x = main['x'];
 	me.y = main['y'];
 	me.username = main['username'];
-	me.BODY_ANGLE = main['bodya'];
-	me.CANNON_ANGLE = main['cannona'];
+	me.bodya = main['bodya'];
+	me.cannona = main['cannona'];
 }
 
 function setOthersState(update){
