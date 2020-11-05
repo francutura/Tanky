@@ -15,6 +15,10 @@ async function connect(){
 async function start(){
 	await downloadAllAssets();
 	await connect();
+	let nickname = sessionStorage.getItem("nick");
+	let joinUpdate = {}
+	joinUpdate["username"] = nickname
+	socket.emit('join', joinUpdate)
 	socket.on('update', (update) => setState(update));
 	initInput();
 	Render.animate()

@@ -21,13 +21,19 @@ io.on('connection', socket => {
 	console.log('Player connected!', socket.id);
 
 	sockets[socket.id] = socket;
-    players[socket.id] = new Tank(socket.id, "test", 10, 10, 20);
+
+	socket.on('join', onJoin);
+});
+
+function onJoin(join){
+	let socket = this;
+    players[socket.id] = new Tank(socket.id, join["username"], 10, 10, 20);
 
 	socket.on('input', handleInput);
 	socket.on('shoot', handleShot);
 	socket.on('cangle', changeCannonAngle);
 	socket.on('disconnect', onDisconnect);
-});
+}
 
 function onDisconnect(){
 	delete sockets[this.id];
@@ -74,11 +80,11 @@ function getNearbyBullets(id){
 }
 
 function update(){
-	Object.keys(sockets).forEach(playerID => {
+	Object.keys(players).forEach(playerID => {
 		const player = players[playerID];
 		player.update(1);
 	});
-	Object.keys(sockets).forEach(playerID => {
+	Object.keys(players).forEach(playerID => {
 		const socket = sockets[playerID];
 		update = {}
 		update['me'] = players[playerID].serialize();
