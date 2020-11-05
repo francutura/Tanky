@@ -159,7 +159,7 @@
   }
 
   function onPlay(){
-	  window.location.href=`${window.location}gamecanvas.html`
+	  window.location = `/gamecanvas.html`
 	  let nickname = document.getElementById("nickname").value;
 	  sessionStorage.setItem("nick", nickname);
   }
