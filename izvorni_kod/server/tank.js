@@ -38,6 +38,25 @@ class Tank {
 		} else {
 			this.right = false;
 		}
+
+		if(forward == true && right == true) {
+			this.bodya = Math.PI/4;
+		} else if(forward == true && left == true) {
+			this.bodya = -Math.PI/4;
+		} else if(backward == true && right == true) {
+			this.bodya = Math.PI * 3/4;
+		} else if(backward == true && left == true) {
+			this.bodya = Math.PI* 5/4;
+		} else if (backward == true){
+			this.bodya = Math.PI;
+		} else if(right == true) {
+			this.bodya = Math.PI/2;
+		} else if(left == true) {
+			this.bodya = -Math.PI/2;
+		} else {
+			this.bodya = 0
+		}
+
 	}
 
 	update(dt){

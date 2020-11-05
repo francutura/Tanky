@@ -36,16 +36,15 @@ function renderUserName(me){
 
 function renderTank(me, other){
 	
-	const { x, y, bodya, cannona, username} = other;
-	let canvasx = canvas.width / 2 + x - me.x;
-	let canvasy = canvas.height / 2 + y - me.y;
+	let canvasx = canvas.width / 2 + other.x - me.x;
+	let canvasy = canvas.height / 2 + other.y - me.y;
 	
 	ctx.save()
 	ctx.translate(canvasx, canvasy)
 	me === other ? renderUserName(me) : renderUserName(other);
 
 	//Rotation
-	//rotateBase(me, other)
+	rotateBase(other)
 	ctx.drawImage(getAsset("tankBase.png"), -25, -25, 50, 50);
 	rotateCannon(other)
 	ctx.drawImage(getAsset("tankTurret.png"), -25, -25, 50, 50);
@@ -61,15 +60,15 @@ function renderProjectile(projectile){
 }
 */
 
-function rotateBase(player, other){
+function rotateBase(player){
 	//TODO move to globals
-	let width = 20
-	let height = 20 
+	let width = 50
+	let height = 50 
 	let rotation = player.bodya
 
-	ctx.translate(0 + width/2, 0 + height/2)
+	ctx.translate(width/2 - 25, height/2 - 25)
 	ctx.rotate(rotation)
-	ctx.translate(0 - width/2, 0 - height/2)
+	ctx.translate(- width/2 + 25, - height/2 + 25)
 }
 
 function rotateCannon(player){
