@@ -58,6 +58,7 @@ class Tank {
 	serialize(){
 		return {
 			id: this.id,
+			username: this.username,
 			x: this.x,
 			y: this.y,
 			bodya: this.bodya,
