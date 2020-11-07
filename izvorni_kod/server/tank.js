@@ -10,7 +10,7 @@ class Tank {
 		
 		//Physics
 		this.xVelocity = 0;
-		this.yVelocit = 0;
+		this.yVelocity = 0;
 		this.power = 0;
 		this.reverse = 0;
 		this.angularVelocity = 0;
@@ -65,22 +65,23 @@ class Tank {
 		
 		const direction = this.power > this.reverse ? 1 : -1;
 		
-		if (this.isTurningLeft) {
-			this.angularVelocity -= direction * Constants.TURN_SPEED * this.isTurningLeft;
+		if (this.turningLeft) {
+			this.angularVelocity -= direction * Constants.TURN_SPEED * this.turningLeft;
 		}
-		if (this.isTurningRight) {
-			this.angularVelocity += direction * Constants.TURN_SPEED * this.isTurningRight;
+		if (this.turningRight) {
+			this.angularVelocity += direction * Constants.TURN_SPEED * this.turningRight;
 		}
 
-		this.xVelocity += Math.sin(this.angle) * (this.power - this.reverse);
-		this.yVelocity += Math.cos(this.angle) * (this.power - this.reverse);
+		this.xVelocity += Math.sin(this.bodya) * (this.power - this.reverse);
+		this.yVelocity += Math.cos(this.bodya) * (this.power - this.reverse);
 
 		this.x += this.xVelocity;
 		this.y -= this.yVelocity;
 		this.xVelocity *= Constants.DRAG;
 		this.yVelocity *= Constants.DRAG;
-		this.angle += this.angularVelocity;
+		this.bodya += this.angularVelocity;
 		this.angularVelocity *= Constants.ANGULAR_DRAG;
+		console.log(this)
 		//
 	}
 
@@ -96,4 +97,4 @@ class Tank {
 	}
 }
 
-export default Tank;
+module.exports = Tank;
