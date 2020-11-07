@@ -1,3 +1,5 @@
+const Constants = require('./constants');
+
 class Tank {
 	constructor(id, username, x, y, speed){
 		this.id = id;
@@ -5,11 +7,17 @@ class Tank {
 		this.y = y;
 		this.speed = speed;
 		this.username = username;
-
-		this.forward = false;
-		this.backward = false;
-		this.right = false;
-		this.left = false;
+		
+		//Physics
+		this.xVelocity = 0;
+		this.yVelocit = 0;
+		this.power = 0;
+		this.reverse = 0;
+		this.angularVelocity = 0;
+		this.isThrottling = false;
+		this.isReversing = false;
+		this.turningRight = false;
+		this.turningLeft = false;
 
 		// Used for rotating tank
 		// body angle and cannon angle
@@ -19,40 +27,61 @@ class Tank {
 
 	updateDir(forward, backward, left, right){
 		if (forward){
-			this.forward = true;
+			this.isThrottling = true;
 		} else {
-			this.forward = false;
+			this.isThrottling = false;
 		}
 		if (backward){
-			this.backward = true;
+			this.isReversing = true;
 		} else {
-			this.backward = false;
+			this.isReversing = false;
 		}
 		if (left){
-			this.left = true;
+			this.turningLeft = true;
 		} else {
-			this.left = false;
+			this.turningLeft = false;
 		}
 		if (right){
-			this.right = true;
+			this.turningRight = true;
 		} else {
-			this.right = false;
+			this.turningRight = false;
 		}
 	}
 
 	update(dt){
-		if (this.forward){
-			this.y -= this.speed * dt;
+		if (this.isThrottling) {
+			this.power += Constants.POWER_FACTOR * this.isThrottling;
+		} else {
+			this.power -= Constants.POWER_FACTOR;
 		}
-		if (this.backward){
-			this.y += this.speed * dt;
+		if (this.isReversing) {
+			this.reverse += Constants.REVERSE_FACTOR;
+		} else {
+			this.reverse -= Constants.REVERSE_FACTOR;
 		}
-		if (this.left){
-			this.x -= this.speed * dt;
+		
+		this.power = Math.max(0, Math.min(Constants.MAX_POWER, this.power));
+		this.reverse = Math.max(0, Math.min(Constants.MAX_REVERSE, this.reverse));
+		
+		const direction = this.power > this.reverse ? 1 : -1;
+		
+		if (this.isTurningLeft) {
+			this.angularVelocity -= direction * Constants.TURN_SPEED * this.isTurningLeft;
 		}
-		if (this.right){
-			this.x += this.speed * dt;
+		if (this.isTurningRight) {
+			this.angularVelocity += direction * Constants.TURN_SPEED * this.isTurningRight;
 		}
+
+		this.xVelocity += Math.sin(this.angle) * (this.power - this.reverse);
+		this.yVelocity += Math.cos(this.angle) * (this.power - this.reverse);
+
+		this.x += this.xVelocity;
+		this.y -= this.yVelocity;
+		this.xVelocity *= Constants.DRAG;
+		this.yVelocity *= Constants.DRAG;
+		this.angle += this.angularVelocity;
+		this.angularVelocity *= Constants.ANGULAR_DRAG;
+		//
 	}
 
 	serialize(){
@@ -67,4 +96,4 @@ class Tank {
 	}
 }
 
-module.exports = Tank;
+export default Tank;
