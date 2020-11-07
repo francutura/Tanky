@@ -63,13 +63,11 @@ class Tank {
 		this.power = Math.max(0, Math.min(Constants.MAX_POWER, this.power));
 		this.reverse = Math.max(0, Math.min(Constants.MAX_REVERSE, this.reverse));
 		
-		const direction = this.power > this.reverse ? 1 : -1;
-		
 		if (this.turningLeft) {
-			this.angularVelocity -= direction * Constants.TURN_SPEED * this.turningLeft;
+			this.angularVelocity -= Constants.TURN_SPEED * this.turningLeft;
 		}
 		if (this.turningRight) {
-			this.angularVelocity += direction * Constants.TURN_SPEED * this.turningRight;
+			this.angularVelocity += Constants.TURN_SPEED * this.turningRight;
 		}
 
 		this.xVelocity += Math.sin(this.bodya) * (this.power - this.reverse);
@@ -81,7 +79,6 @@ class Tank {
 		this.yVelocity *= Constants.DRAG;
 		this.bodya += this.angularVelocity;
 		this.angularVelocity *= Constants.ANGULAR_DRAG;
-		console.log(this)
 		//
 	}
 
