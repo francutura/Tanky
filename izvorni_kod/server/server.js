@@ -29,6 +29,9 @@ io.on('connection', socket => {
 
 function onJoin(join){
 	let socket = this;
+	if (join["username"].length > 20){
+		join["username"] = join["username"].slice(0, 20)
+	}
     players[socket.id] = new Tank(socket.id, join["username"], 10, 10);
 
 	socket.on('input', handleInput);
