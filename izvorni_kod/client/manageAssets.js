@@ -6,7 +6,7 @@ async function downloadAsset(assetName) {
 		asset.onload = () => {
 		console.log(`Downloaded ${assetName}`);
 	};
-	asset.src = `./${assetName}`;
+	asset.src = `./assets/${assetName}`;
 	return asset
 }
 
