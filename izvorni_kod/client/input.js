@@ -1,4 +1,5 @@
 import { getSocket } from './index.js'
+import './constants.js'
 
 const player = {
 	left: false,
@@ -63,26 +64,16 @@ function onKeyUp(event) {
 function initInput(){
 	addEventListener("keydown", onKeyDown, false);
 	addEventListener("keyup", onKeyUp, false);
-	//TODO implement
-	/*
-	addEventListener("click", (event) => {
-	  const angle = Math.atan2(event.clientY - (canvas.height / 2 + player.height / 2), event.clientX - (canvas.width / 2 + player.width / 2))
-	  const velocity = {
-		x: 10 * Math.cos(angle), 
-		y: 10 * Math.sin(angle)
-	  }
-	  
-	  addProjectile(new Projectile (canvas.width / 2 + player.width / 2, canvas.height / 2 + player.height / 2, 5, 'darkolivegreen', velocity))
-	});
-	
-	*/
-	addEventListener("mousemove", e => {
 
-		//TODO change constant 50 to global constant player width/height
-		let angle = Math.atan2(e.offsetY - (canvas.height / 2 + 50 / 2), e.offsetX - (canvas.width / 2 + 50 / 2))
+	addEventListener("click", (event) => {
+		let angle = Math.atan2(event.clientY - (canvas.height / 2 + window.Constants.PLAYER_HEIGHT / 2), event.clientX - (canvas.width / 2 + window.Constants.PLAYER_HEIGHT / 2))
+		getSocket().emit('fire', angle)
+	});
+
+	addEventListener("mousemove", e => {
+		let angle = Math.atan2(e.offsetY - (canvas.height / 2 + window.Constants.PLAYER_HEIGHT / 2), e.offsetX - (canvas.width / 2 + window.Constants.PLAYER_WIDTH / 2))
 		getSocket().emit('cangle', angle)
 	});
-	
 }
 
 export { initInput }

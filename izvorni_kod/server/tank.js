@@ -1,11 +1,10 @@
-const Constants = require('./constants');
+const Constants = require('../const/constants');
 
 class Tank {
-	constructor(id, username, x, y, speed){
+	constructor(id, username, x, y){
 		this.id = id;
 		this.x = x;
 		this.y = y;
-		this.speed = speed;
 		this.username = username;
 		
 		//Physics
@@ -23,6 +22,11 @@ class Tank {
 		// body angle and cannon angle
 		this.bodya = 0;
 		this.cannona = 0;
+
+		//Used to track num of active projectiles
+		//Constructs id of projectile using this number
+		this.num_projectiles = 0
+		this.last_shot_date = 0
 	}
 
 	updateDir(forward, backward, left, right){

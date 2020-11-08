@@ -1,9 +1,11 @@
 const me = {x: 0, y: 0, username:"None", bodya: 0, cannona: 0};
 const others = {}
+const projectiles = {}
 
 function setState(update){
 	setMyState(update);
 	setOthersState(update);
+	setProjectileState(update);
 }
 
 function getMyState(){
@@ -12,6 +14,10 @@ function getMyState(){
 
 function getOthersState(){
 	return others;
+}
+
+function getProjectiles(){
+	return projectiles;
 }
 
 function setMyState(update){
@@ -30,4 +36,11 @@ function setOthersState(update){
 	});
 }
 
-export { getMyState, getOthersState, setState }
+function setProjectileState(update){
+	for (var ele in projectiles) delete projectiles[ele];
+	update['projectiles'].forEach((projectile) =>{
+		projectiles[projectile.id] = projectile;
+	});
+}
+
+export { getMyState, getOthersState, setState, getProjectiles }

@@ -1,5 +1,6 @@
-import { getMyState, getOthersState } from "./state.js"
+import { getMyState, getOthersState, getProjectiles } from "./state.js"
 import { getAsset } from "./manageAssets.js"
+import './constants.js'
 
 var canvas = document.querySelector('canvas');
 var ctx = canvas.getContext('2d');
@@ -7,27 +8,9 @@ var ctx = canvas.getContext('2d');
 canvas.width = innerWidth;
 canvas.height = innerHeight;
 
-//TODO move to globals
-var MAP_SIZE = 3000;
-
 function clear() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
-
-/* function renderTank(me, other){
-	const { x, y, bodyAngle, cannonAngle} = other;
-	let canvasx = canvas.width / 2 + x - me.x;
-	let canvasy = canvas.height / 2 + y - me.y;
-
-	ctx.save()
-	ctx.translate(canvasx, canvasy)
-	//Rotation
-	//rotateBase(me, other)
-	ctx.drawImage(getAsset("tankBase.png"), -25, -25, 50, 50);
-	//rotateCannon(me, other)
-	ctx.drawImage(getAsset("tankTurret.png"), -25, -25, 50, 50);
-	ctx.restore()
-} */
 
 function renderUserName(me){
 	ctx.font = "15px Arial"
@@ -45,25 +28,25 @@ function renderTank(me, other){
 
 	//Rotation
 	rotateBase(other)
-	ctx.drawImage(getAsset("tankBase.png"), -25, -25, 50, 50);
+	ctx.drawImage(getAsset("tankBase.png"), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
 	rotateCannon(other)
-	ctx.drawImage(getAsset("tankTurret.png"), -25, -25, 50, 50);
+	ctx.drawImage(getAsset("tankTurret.png"), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
 	ctx.restore()
 }
 
-/*
-function renderProjectile(projectile){
-        ctx.beginPath()
-        ctx.arc(projectile.x, projectile.y, projectile.radius, 0, Math.PI * 2, false)
-        ctx.fillStyle = projectile.color
-        ctx.fill()
+function renderProjectile(me, projectile){
+	let canvasx = canvas.width / 2 + projectile.x - me.x;
+	let canvasy = canvas.height / 2 + projectile.y - me.y;
+	ctx.save()
+	ctx.translate(canvasx, canvasy)
+	ctx.drawImage(getAsset("bullet.png"), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
+	ctx.restore()
 }
-*/
 
 function rotateBase(player){
 	//TODO move to globals
-	let width = 50
-	let height = 50 
+	let width = window.Constants.PLAYER_WIDTH;
+	let height = window.Constants.PLAYER_HEIGHT; 
 	let rotation = player.bodya
 
 	ctx.translate(width/2 - 25, height/2 - 25)
@@ -72,8 +55,8 @@ function rotateBase(player){
 }
 
 function rotateCannon(player){
-	let width = 50
-	let height = 50 
+	let width = window.Constants.PLAYER_WIDTH;
+	let height = window.Constants.PLAYER_HEIGHT; 
 	let rotation = player.cannona
 
 	ctx.translate(width/2 - 25, height/2 - 25)
@@ -91,24 +74,18 @@ function animateLoop() {
     clear();
 	let me = getMyState();
 	let others = getOthersState();
+	let projectiles = getProjectiles();
 	renderTank(me, me);
 	Object.values(others).forEach((other) =>{
 		renderTank(me, other);
 	});
+	Object.values(projectiles).forEach((projectile) =>{
+		renderProjectile(me, projectile);
+	});
 	
 	if (me) {
-		ctx.strokeRect(canvas.width / 2 - me.x, canvas.height / 2 - me.y, MAP_SIZE, MAP_SIZE);
+		ctx.strokeRect(canvas.width / 2 - me.x, canvas.height / 2 - me.y, window.Constants.MAP_SIZE, window.Constants.MAP_SIZE);
 	}
-	/*
-    
-    detectWalls(me);
-	let projectiles = getProjectiles()
-
-	projectiles.forEach(projectile => {
-		projectile.update()
-		renderProjectile(projectile)
-	});
-	*/
 }
 
 export {animate}

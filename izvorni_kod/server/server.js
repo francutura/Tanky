@@ -1,13 +1,15 @@
 const express = require('express');
 const socketio = require('socket.io');
 const Tank = require('./tank');
+const Projectile = require('./projectile');
 
 const sockets = {};
 const players = {};
-const bullets = [];
+const projectiles = [];
 
 const app = express();
 app.use(express.static('../client'))
+app.use(express.static('../const'))
 
 const port = 6969
 const server = app.listen(port);
@@ -27,10 +29,10 @@ io.on('connection', socket => {
 
 function onJoin(join){
 	let socket = this;
-    players[socket.id] = new Tank(socket.id, join["username"], 10, 10, 20);
+    players[socket.id] = new Tank(socket.id, join["username"], 10, 10);
 
 	socket.on('input', handleInput);
-	socket.on('shoot', handleShot);
+	socket.on('fire', handleShot);
 	socket.on('cangle', changeCannonAngle);
 	socket.on('disconnect', onDisconnect);
 }
@@ -59,8 +61,13 @@ function changeCannonAngle(angle){
 }
 
 //TODO implement
-function handleShot(input){
+function handleShot(angle){
 	let socket = this;
+	if (players[socket.id] && Date.now() - players[socket.id].last_shot_date > 1000){
+		let projectile = new Projectile(players[socket.id], players[socket.id].x, players[socket.id].y, angle)
+		projectiles.push(projectile);
+		players[socket.id].last_shot_date = Date.now();
+	}
 }
 
 //TODO implement
@@ -75,8 +82,12 @@ function getNearbyPlayers(id){
 }
 
 //TODO implement
-function getNearbyBullets(id){
-	return []
+function getNearbyProjectiles(id){
+	temp = []
+	Object.keys(projectiles).forEach(projectile => {
+		temp.push(projectiles[projectile].serialize());
+	});
+	return temp
 }
 
 function update(){
@@ -84,12 +95,31 @@ function update(){
 		const player = players[playerID];
 		player.update(1);
 	});
+	Object.keys(projectiles).forEach(projectileID => {
+		let projectile = projectiles[projectileID];
+		projectile.update();
+		Object.keys(players).forEach(playerID => {
+			let player = players[playerID]
+			if ((Math.abs(player.x - projectile.x) < 20
+			  && Math.abs(player.y - projectile.y) < 20)
+			  && projectile.player.id != playerID){
+				projectile.destroyed = true
+				players[playerID].x = 10
+				players[playerID].y = 10
+			}
+		});
+	})
 	Object.keys(players).forEach(playerID => {
 		const socket = sockets[playerID];
 		update = {}
 		update['me'] = players[playerID].serialize();
 		update['others'] = getNearbyPlayers(playerID);
-		update['bullets'] = getNearbyBullets(playerID);
+		update['projectiles'] = getNearbyProjectiles(playerID);
 		socket.emit('update', update);
+	});
+	Object.keys(projectiles).forEach(projectileID => {
+		if (projectiles[projectileID].isDestroyed()){
+			delete projectiles[projectileID];
+		}
 	});
 }
