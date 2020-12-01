@@ -32,7 +32,29 @@ function onJoin(join){
 	if (join["username"].length > 20){
 		join["username"] = join["username"].slice(0, 20)
 	}
-    players[socket.id] = new Tank(socket.id, join["username"], 10, 10);
+
+	let tenkici = [
+		["M1A.svg", "M1A_top.svg"],
+		["matilda.svg", "matilda_top.svg"],
+		["pl-01.svg", "pl-01_top.svg"],
+		["sherman.svg", "sherman_top.svg"],
+		["t-34.svg", "t34_top.svg"],
+		["tankBase.png", "tankTurret.png"],
+		["tiger_131.svg", "tiger_131_top.svg"],
+	]
+	
+	let projektili = [
+		"boom.svg",
+		"bullet.png",
+		"kugla.svg"
+	]
+
+	let itenkic = Math.floor(Math.random() * tenkici.length)
+	let tb = tenkici[itenkic][0]
+	let tt = tenkici[itenkic][1]
+	let pp = projektili[Math.floor(Math.random() * projektili.length)]
+
+    players[socket.id] = new Tank(socket.id, join["username"], 10, 10, tb, tt, pp);
 
 	socket.on('input', handleInput);
 	socket.on('fire', handleShot);
@@ -67,7 +89,7 @@ function changeCannonAngle(angle){
 function handleShot(angle){
 	let socket = this;
 	if (players[socket.id] && Date.now() - players[socket.id].last_shot_date > 1000){
-		let projectile = new Projectile(players[socket.id], players[socket.id].x, players[socket.id].y, angle)
+		let projectile = new Projectile(players[socket.id], players[socket.id].x, players[socket.id].y, angle, players[socket.id].bulletSkin)
 		projectiles.push(projectile);
 		players[socket.id].last_shot_date = Date.now();
 	}

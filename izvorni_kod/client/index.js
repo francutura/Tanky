@@ -13,7 +13,7 @@ async function connect(){
 };
 
 async function start(){
-	await downloadAllAssets();
+	downloadAllAssets();
 	await connect();
 	let nickname = sessionStorage.getItem("nick");
 	let joinUpdate = {}
@@ -28,8 +28,6 @@ function getSocket(){
 	return socket;
 }
 
-console.log("started?")
 start();
-console.log("2started?")
 
 export { getSocket }

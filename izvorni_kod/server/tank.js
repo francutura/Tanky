@@ -1,11 +1,14 @@
 const Constants = require('../const/constants');
 
 class Tank {
-	constructor(id, username, x, y){
+	constructor(id, username, x, y, baseImg, turretImg, bulletSkin){
 		this.id = id;
 		this.x = x;
 		this.y = y;
 		this.username = username;
+		this.baseImg = baseImg;
+		this.turretImg = turretImg;
+		this.bulletSkin = bulletSkin;
 		
 		//Physics
 		this.xVelocity = 0;
@@ -96,6 +99,8 @@ class Tank {
 			y: this.y,
 			bodya: this.bodya,
 			cannona: this.cannona,
+			bimg: this.baseImg,
+			timg: this.turretImg,
 		}
 	}
 }

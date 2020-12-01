@@ -1,7 +1,7 @@
 const Constants = require('../const/constants');
 
 class Projectile {
-	constructor(player, x, y, direction){
+	constructor(player, x, y, direction, skin){
 		// Player who owns the projectile
 		this.player = player;
 		this.id = ("" + player.id) + ("" + player.num_projectiles)
@@ -12,7 +12,8 @@ class Projectile {
 			x: 10 * Math.cos(direction), 
 			y: 10 * Math.sin(direction)
 		}
-		this.destroyed = false
+		this.destroyed = false;
+		this.skin = skin;
 	}
 
 	update(){
@@ -33,7 +34,8 @@ class Projectile {
 		return {
 			id: this.id,
 			x: this.x,
-			y: this.y
+			y: this.y,
+			skin: this.skin
 		}
 	}
 }

@@ -1,4 +1,4 @@
-const me = {x: 0, y: 0, username:"None", bodya: 0, cannona: 0};
+const me = {x: 0, y: 0, username:"None", bodya: 0, cannona: 0, baseImg: "tankBase.png", turretImg: "tankTurret.png"};
 const others = {}
 const projectiles = {}
 
@@ -27,6 +27,8 @@ function setMyState(update){
 	me.username = main['username'];
 	me.bodya = main['bodya'];
 	me.cannona = main['cannona'];
+	me.baseImg = main['bimg']
+	me.turretImg = main['timg']
 }
 
 function setOthersState(update){
