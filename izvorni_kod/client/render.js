@@ -28,9 +28,9 @@ function renderTank(me, other){
 
 	//Rotation
 	rotateBase(other)
-	ctx.drawImage(getAsset("tankBase.png"), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
+	ctx.drawImage(getAsset(other.baseImg), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
 	rotateCannon(other)
-	ctx.drawImage(getAsset("tankTurret.png"), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
+	ctx.drawImage(getAsset(me.turretImg), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
 	ctx.restore()
 }
 
@@ -39,7 +39,7 @@ function renderProjectile(me, projectile){
 	let canvasy = canvas.height / 2 + projectile.y - me.y;
 	ctx.save()
 	ctx.translate(canvasx, canvasy)
-	ctx.drawImage(getAsset("bullet.png"), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
+	ctx.drawImage(getAsset(projectile.skin), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
 	ctx.restore()
 }
 
