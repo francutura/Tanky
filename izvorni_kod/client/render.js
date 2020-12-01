@@ -28,9 +28,9 @@ function renderTank(me, other){
 
 	//Rotation
 	rotateBase(other)
-	ctx.drawImage(getAsset(other.baseImg), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
+	ctx.drawImage(getAsset(other.bimg), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
 	rotateCannon(other)
-	ctx.drawImage(getAsset(me.turretImg), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
+	ctx.drawImage(getAsset(other.timg), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
 	ctx.restore()
 }
 
