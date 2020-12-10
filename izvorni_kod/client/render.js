@@ -1,4 +1,4 @@
-import { getMyState, getOthersState, getProjectiles } from "./state.js"
+import { getMyState, getOthersState, getProjectiles, getMap } from "./state.js"
 import { getAsset } from "./manageAssets.js"
 import './constants.js'
 //import { TILE_HEIGHT, TILE_WIDTH } from "../const/constants.js";
@@ -8,23 +8,6 @@ var ctx = canvas.getContext('2d');
 //TODO set canvas dimensions 
 canvas.width = innerWidth;
 canvas.height = innerHeight;
-
-/// for development purpos
-var mapArray = []
-var flag = true
-for (var i = 0; i < 150; i++) {
-	mapArray.push([])
-	flag = !flag
-	for (var j = 0; j < 150; j++) {
-		if (flag === true) {
-			mapArray[i].push(1)
-			//flag = !flag
-		} else {
-			mapArray[i].push(0)
-			//flag = !flag
-		}
-	}
-}
 
 function clear() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -83,6 +66,9 @@ function rotateCannon(player){
 }
 
 function renderMap(me, tileMap) {
+	if (tileMap.length == 0){
+			return
+	}
 	var tileX = me.x / window.Constants.TILE_WIDTH
 	var tileY = me.y / window.Constants.TILE_HEIGHT
 	var tilesOnScreenWidth = canvas.width / window.Constants.TILE_WIDTH
@@ -102,6 +88,7 @@ function renderMap(me, tileMap) {
 				if (tileMap[i][j] == 1) {
 					ctx.drawImage(getAsset("blackTile.png"), i * window.Constants.TILE_WIDTH, j * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
 				}
+			}
 			
 			ctx.restore()
 		}
@@ -125,7 +112,7 @@ function animateLoop() {
 		ctx.fillStyle = "#0D7005";
 		ctx.fillRect(canvas.width / 2 - me.x, canvas.height / 2 - me.y, window.Constants.MAP_SIZE, window.Constants.MAP_SIZE);
 		ctx.fillStyle = "#000000"
-		renderMap(me, mapArray)
+		renderMap(me, getMap())
 	}
 	renderTank(me, me);
 	Object.values(others).forEach((other) =>{
