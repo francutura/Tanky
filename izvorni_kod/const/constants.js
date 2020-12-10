@@ -15,8 +15,8 @@ TURN_SPEED: 0.002,
 
 //MAP
 	MAP_SIZE: 3000,
-	TILE_WIDTH: 20,
-	TILE_HEIGHT: 20,
+	TILE_WIDTH: 50,
+	TILE_HEIGHT: 50,
 
 });
 if (typeof window === 'undefined') {

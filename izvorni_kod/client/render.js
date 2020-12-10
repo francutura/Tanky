@@ -18,10 +18,10 @@ for (var i = 0; i < 150; i++) {
 	for (var j = 0; j < 150; j++) {
 		if (flag === true) {
 			mapArray[i].push(1)
-			flag = !flag
+			//flag = !flag
 		} else {
 			mapArray[i].push(0)
-			flag = !flag
+			//flag = !flag
 		}
 	}
 }
@@ -85,7 +85,6 @@ function rotateCannon(player){
 function renderMap(me, tileMap) {
 	var tileX = me.x / window.Constants.TILE_WIDTH
 	var tileY = me.y / window.Constants.TILE_HEIGHT
-	console.log(tileX, tileY)
 	var tilesOnScreenWidth = canvas.width / window.Constants.TILE_WIDTH
 	var tilesOnScreenHeight = canvas.height / window.Constants.TILE_HEIGHT
 	var startI = Math.ceil(tileX - tilesOnScreenWidth / 2)
@@ -100,12 +99,9 @@ function renderMap(me, tileMap) {
 			ctx.save()
 			ctx.translate(canvasx, canvasy)
 			if (i >= 0 && i <= 150 && j >= 0 && j <= 150){ 
-				if (tileMap[i][j] == 0) {
+				if (tileMap[i][j] == 1) {
 					ctx.drawImage(getAsset("blackTile.png"), i * window.Constants.TILE_WIDTH, j * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
-				} else {
-					ctx.drawImage(getAsset("pinkTile.png"), i * window.Constants.TILE_WIDTH, j * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
-				}	
-			}
+				}
 			
 			ctx.restore()
 		}
@@ -125,6 +121,10 @@ function animateLoop() {
 	let others = getOthersState();
 	let projectiles = getProjectiles();
 	if (me) {
+		// Render ground
+		ctx.fillStyle = "#0D7005";
+		ctx.fillRect(canvas.width / 2 - me.x, canvas.height / 2 - me.y, window.Constants.MAP_SIZE, window.Constants.MAP_SIZE);
+		ctx.fillStyle = "#000000"
 		renderMap(me, mapArray)
 	}
 	renderTank(me, me);
@@ -135,9 +135,6 @@ function animateLoop() {
 		renderProjectile(me, projectile);
 	});
 	
-	if (me) {
-		ctx.strokeRect(canvas.width / 2 - me.x, canvas.height / 2 - me.y, window.Constants.MAP_SIZE, window.Constants.MAP_SIZE);
-	}
 }
 
 export {animate}
