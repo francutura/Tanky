@@ -84,7 +84,7 @@ function renderMap(me, tileMap) {
 
 			ctx.save()
 			ctx.translate(canvasx, canvasy)
-			if (i >= 0 && i <= 150 && j >= 0 && j <= 150){ 
+			if (i >= 0 && i < (Constants.MAP_SIZE / Constants.TILE_HEIGHT) && j >= 0 && j < (Constants.MAP_SIZE / Constants.TILE_WIDTH)){ 
 				if (tileMap[i][j] == 1) {
 					ctx.drawImage(getAsset("blackTile.png"), i * window.Constants.TILE_WIDTH, j * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
 				}
