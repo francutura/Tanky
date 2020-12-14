@@ -106,13 +106,16 @@ class Tank {
 				this.angularVelocity = 0;
 				return
 		}
-		if (map[Math.round((x)/Constants.TILE_WIDTH)][Math.round((y)/Constants.TILE_HEIGHT)] != 0){
-				this.xVelocity = 0;
-				this.yVelocity = 0;
-				this.power = 0;
-				this.reverse = 0;
-				this.angularVelocity = 0;
-			return
+
+		if (map.length != 0){
+			if (map[Math.round((x)/Constants.TILE_WIDTH)][Math.round((y)/Constants.TILE_HEIGHT)] != 0){
+					this.xVelocity = 0;
+					this.yVelocity = 0;
+					this.power = 0;
+					this.reverse = 0;
+					this.angularVelocity = 0;
+				return
+			}
 		}
 
 		this.x = x;
