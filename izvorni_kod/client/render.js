@@ -73,10 +73,10 @@ function renderMap(me, tileMap) {
 	var tileY = me.y / window.Constants.TILE_HEIGHT
 	var tilesOnScreenWidth = canvas.width / window.Constants.TILE_WIDTH
 	var tilesOnScreenHeight = canvas.height / window.Constants.TILE_HEIGHT
-	var startI = Math.ceil(tileX - tilesOnScreenWidth / 2)
-	var endI = Math.ceil(tileX + tilesOnScreenWidth / 2)
-	var startJ = Math.ceil(tileY - tilesOnScreenHeight / 2)
-	var endJ = Math.ceil(tileY + tilesOnScreenHeight / 2)
+	var startJ = Math.ceil(tileX - tilesOnScreenWidth / 2)
+	var endJ = Math.ceil(tileX + tilesOnScreenWidth / 2)
+	var startI = Math.ceil(tileY - tilesOnScreenHeight / 2)
+	var endI = Math.ceil(tileY + tilesOnScreenHeight / 2)
 	for (var i = startI - 10; i < endI + 10; i++) { //magic number 10 in both loops is there as a buffer for tiles. if it wasnt there edge tiles would disapper while moving.
 		for (var j = startJ - 10; j < endJ + 10; j++) {
 			let canvasx = canvas.width / 2 - me.x;
@@ -86,7 +86,7 @@ function renderMap(me, tileMap) {
 			ctx.translate(canvasx, canvasy)
 			if (i >= 0 && i < (Constants.MAP_SIZE / Constants.TILE_HEIGHT) && j >= 0 && j < (Constants.MAP_SIZE / Constants.TILE_WIDTH)){ 
 				if (tileMap[i][j] == 1) {
-					ctx.drawImage(getAsset("blackTile.png"), i * window.Constants.TILE_WIDTH, j * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
+					ctx.drawImage(getAsset("blackTile.png"), j * window.Constants.TILE_WIDTH, i * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
 				}
 			}
 			

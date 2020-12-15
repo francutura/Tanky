@@ -107,8 +107,10 @@ class Tank {
 				return
 		}
 
-		if (map != undefined){
-			if (map[Math.round((x)/Constants.TILE_WIDTH)][Math.round((y)/Constants.TILE_HEIGHT)] != 0){
+		let xkor = Math.round(x/Constants.TILE_WIDTH)
+		let ykor = Math.round(y/Constants.TILE_WIDTH)
+		if (ykor < map.length || xkor < map[0].length){
+			if (map[ykor][xkor] != 0){
 					this.xVelocity = 0;
 					this.yVelocity = 0;
 					this.power = 0;
