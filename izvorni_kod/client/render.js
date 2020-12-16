@@ -15,7 +15,8 @@ function clear() {
 
 function renderUserName(me){
 	ctx.font = "15px Arial"
-	ctx.fillText(me.username, -32, -28);
+	ctx.fillText(me.username, -(window.Constants.PLAYER_WIDTH / 2), -(window.Constants.PLAYER_HEIGHT / 2));
+
 }
 
 function renderTank(me, other){
@@ -29,9 +30,9 @@ function renderTank(me, other){
 
 	//Rotation
 	rotateBase(other)
-	ctx.drawImage(getAsset(other.bimg), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
+	ctx.drawImage(getAsset(other.bimg), -(window.Constants.PLAYER_WIDTH / 2), -(window.Constants.PLAYER_HEIGHT / 2), window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
 	rotateCannon(other)
-	ctx.drawImage(getAsset(other.timg), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
+	ctx.drawImage(getAsset(other.timg), -(window.Constants.PLAYER_WIDTH / 2), -(window.Constants.PLAYER_HEIGHT / 2), window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
 	ctx.restore()
 }
 
@@ -40,7 +41,7 @@ function renderProjectile(me, projectile){
 	let canvasy = canvas.height / 2 + projectile.y - me.y;
 	ctx.save()
 	ctx.translate(canvasx, canvasy)
-	ctx.drawImage(getAsset(projectile.skin), -25, -25, window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
+	ctx.drawImage(getAsset(projectile.skin), -(window.Constants.PLAYER_WIDTH / 2), -(window.Constants.PLAYER_HEIGHT / 2), window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
 	ctx.restore()
 }
 
@@ -50,9 +51,9 @@ function rotateBase(player){
 	let height = window.Constants.PLAYER_HEIGHT; 
 	let rotation = player.bodya
 
-	ctx.translate(width/2 - 25, height/2 - 25)
+	ctx.translate(width/2 - (window.Constants.PLAYER_WIDTH / 2), height/2 - (window.Constants.PLAYER_HEIGHT / 2))
 	ctx.rotate(rotation)
-	ctx.translate(- width/2 + 25, - height/2 + 25)
+	ctx.translate(- width/2 + (window.Constants.PLAYER_WIDTH / 2), - height/2 + (window.Constants.PLAYER_HEIGHT / 2))
 }
 
 function rotateCannon(player){
@@ -60,9 +61,9 @@ function rotateCannon(player){
 	let height = window.Constants.PLAYER_HEIGHT; 
 	let rotation = player.cannona
 
-	ctx.translate(width/2 - 25, height/2 - 25)
+	ctx.translate(width/2 - (window.Constants.PLAYER_WIDTH / 2), height/2 - (window.Constants.PLAYER_HEIGHT / 2))
 	ctx.rotate(rotation + Math.PI/2 - player.bodya)
-	ctx.translate(- width/2 + 25, - height/2 + 25)
+	ctx.translate(- width/2 + (window.Constants.PLAYER_WIDTH / 2), - height/2 + (window.Constants.PLAYER_HEIGHT / 2))
 }
 
 function renderMap(me, tileMap) {
