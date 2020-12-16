@@ -31,7 +31,7 @@ class Projectile {
 
 		let xkor = Math.round(x/Constants.TILE_WIDTH)
 		let ykor = Math.round(y/Constants.TILE_HEIGHT)
-		if (ykor < map.length || xkor < map[0].length){
+		if (ykor < map.length && xkor < map[0].length){
 			if (map[ykor][xkor] != 0){
 				this.destroyed = true;
 				return
