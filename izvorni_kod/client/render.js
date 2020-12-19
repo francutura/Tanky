@@ -110,9 +110,7 @@ function animateLoop() {
 	let projectiles = getProjectiles();
 	if (me) {
 		// Render ground
-		ctx.fillStyle = "#0D7005";
-		ctx.fillRect(canvas.width / 2 - me.x, canvas.height / 2 - me.y, window.Constants.MAP_SIZE, window.Constants.MAP_SIZE);
-		ctx.fillStyle = "#000000"
+		ctx.drawImage(getAsset("livada.svg"), canvas.width / 2 - me.x, canvas.height / 2 - me.y, window.Constants.MAP_SIZE, window.Constants.MAP_SIZE); 
 		renderMap(me, getMap())
 	}
 	renderTank(me, me);
