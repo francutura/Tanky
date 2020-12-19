@@ -68,7 +68,7 @@ function onJoin(join){
 		["matilda.svg", "matilda_top.svg"],
 		["pl-01.svg", "pl-01_top.svg"],
 		["sherman.svg", "sherman_top.svg"],
-		["t-34.svg", "t34_top.svg"],
+		["t-34.svg", "t-34_top.svg"],
 		//["tankBase.png", "tankTurret.png"],
 		["tiger_131.svg", "tiger_131_top.svg"],
 	]
