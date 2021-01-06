@@ -1,4 +1,4 @@
-const me = {x: 0, y: 0, username:"None", bodya: 0, cannona: 0, bimg: "tankBase.png", timg: "tankTurret.png"};
+const me = {x: 0, y: 0, username:"None", bodya: 0, cannona: 0, bimg: "tankBase.png", timg: "tankTurret.png", kills: 0};
 const others = {}
 const projectiles = {}
 var gameMap = []
@@ -34,13 +34,46 @@ function setMyState(update){
 	me.cannona = main['cannona'];
 	me.bimg = main['bimg']
 	me.timg = main['timg']
+	me.kills = main['kills'];
+
+	document.getElementById("leaderboard").innerHTML = ""
+	let row = document.createElement('div');
+	row.setAttribute('class', 'row');
+	let entry_name = document.createElement("div")
+	let entry_score = document.createElement("div")
+	entry_name.setAttribute('class', 'name');
+	entry_score.setAttribute('class', 'score');
+	entry_name.setAttribute('id', '1_name');
+	entry_score.setAttribute('id', '1_score');
+	entry_name.innerHTML = me.username;
+	entry_score.innerHTML = me.kills;
+	row.appendChild(entry_name)
+	row.appendChild(entry_score)
+	document.getElementById("leaderboard").appendChild(row);
+	
 }
 
 function setOthersState(update){
 	for (var ele in others) delete others[ele];
 	update['others'].forEach((other) =>{
 		others[other.id] = other;
+
+		let row = document.createElement('div');
+		row.setAttribute('class', 'row');
+		let entry_name = document.createElement("div")
+		let entry_score = document.createElement("div")
+		entry_name.setAttribute('class', 'name');
+		entry_score.setAttribute('class', 'score');
+		entry_name.setAttribute('id', 'name');
+		entry_score.setAttribute('id', 'score');
+		entry_name.innerHTML = other.username;
+		entry_score.innerHTML = other.kills;
+		row.appendChild(entry_name)
+		row.appendChild(entry_score)
+		document.getElementById("leaderboard").appendChild(row);
+
 	});
+
 }
 
 function setMap(map){
