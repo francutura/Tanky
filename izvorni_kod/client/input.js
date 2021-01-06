@@ -102,7 +102,7 @@ function receiveChat(message){
 	let appendMe = ""
 
 	if (isMe){
-			appendMe = '<li style="width:100%;">' +
+			appendMe = '<li style="width:90%;">' +
 				'<div class="msj-rta macro">' +
 					'<div class="text text-r">' +
 						`<p> ${text} </p>` +
@@ -111,7 +111,7 @@ function receiveChat(message){
 				'<div class="avatar" style="padding:0px 0px 0px 10px !important"></div>' +
 		  '</li>';
 	} else {
-			appendMe = '<li style="width:100%">' +
+			appendMe = '<li style="width:90%">' +
 				'<div class="msj macro">' +
 					'<div class="text text-l">' +
 						`<p> ${text} </p>` +
@@ -122,6 +122,8 @@ function receiveChat(message){
 	}
 
 	document.querySelector('ul').insertAdjacentHTML('beforeend', appendMe);
+	let scroll = document.querySelector("ul");
+	scroll.scrollTop = scroll.scrollHeight;
 }
 
 
