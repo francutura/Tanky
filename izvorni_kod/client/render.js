@@ -87,7 +87,7 @@ function renderMap(me, tileMap) {
 			ctx.translate(canvasx, canvasy)
 			if (i >= 0 && i < (Constants.MAP_SIZE / Constants.TILE_HEIGHT) && j >= 0 && j < (Constants.MAP_SIZE / Constants.TILE_WIDTH)){ 
 				if (tileMap[i][j] == 1) {
-					ctx.drawImage(getAsset("blackTile.png"), j * window.Constants.TILE_WIDTH, i * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
+					ctx.drawImage(getAsset("suhozid.svg"), j * window.Constants.TILE_WIDTH, i * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
 				}
 			}
 			
