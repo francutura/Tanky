@@ -80,29 +80,42 @@ function inputChat(){
 		document.querySelector(".mytext").value = ""
 }
 
+function sanitize(string) {
+  const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#x27;',
+      "/": '&#x2F;',
+  };
+  const reg = /[&<>"'/]/ig;
+  return string.replace(reg, (match)=>(map[match]));
+}
+
 function receiveChat(message){
 	let isMe = message.isMe;
 	let username = message.username;
 	let text = message.text;
+	text = sanitize(text)
+	username = sanitize(username)
 	let appendMe = ""
 
 	if (isMe){
-			console.log("yes")
 			appendMe = '<li style="width:100%;">' +
 				'<div class="msj-rta macro">' +
 					'<div class="text text-r">' +
-						'<p>'+text+'</p>' +
-						'<p><small>'+username+'</small></p>' +
+						`<p> ${text} </p>` +
+						`<p><small>${username}</small></p>` +
 					'</div>' +
 				'<div class="avatar" style="padding:0px 0px 0px 10px !important"></div>' +
 		  '</li>';
 	} else {
-			console.log("not")
 			appendMe = '<li style="width:100%">' +
 				'<div class="msj macro">' +
 					'<div class="text text-l">' +
-						'<p>'+ text +'</p>' +
-						'<p><small>'+username+'</small></p>' +
+						`<p> ${text} </p>` +
+						`<p><small>${username}</small></p>` +
 					'</div>' +
 				'</div>' +
 			'</li>';                    
