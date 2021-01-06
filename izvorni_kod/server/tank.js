@@ -9,6 +9,7 @@ class Tank {
 		this.baseImg = baseImg;
 		this.turretImg = turretImg;
 		this.bulletSkin = bulletSkin;
+		this.kills = 0;
 		
 		//Physics
 		this.xVelocity = 0;
@@ -145,6 +146,7 @@ class Tank {
 			cannona: this.cannona,
 			bimg: this.baseImg,
 			timg: this.turretImg,
+			kills: this.kills
 		}
 	}
 }

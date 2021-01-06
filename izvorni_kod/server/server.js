@@ -158,6 +158,7 @@ function update(){
 			if ((Math.abs(player.x - projectile.x) < 20
 			  && Math.abs(player.y - projectile.y) < 20)
 			  && projectile.player.id != playerID){
+				projectile.player.kills++;
 				projectile.destroyed = true
 				players[playerID].x = 10
 				players[playerID].y = 10
