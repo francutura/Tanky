@@ -90,6 +90,17 @@ function onJoin(join){
 	socket.on('fire', handleShot);
 	socket.on('cangle', changeCannonAngle);
 	socket.on('disconnect', onDisconnect);
+	socket.on('chat', handleChat)
+}
+
+function handleChat(message){
+	
+	Object.keys(players).forEach(playerID => {
+		const socket = sockets[playerID];
+		if (socket !== this) {
+				socket.emit('chat', message);
+		}
+	});
 }
 
 function onDisconnect(){

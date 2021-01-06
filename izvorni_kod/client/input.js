@@ -1,4 +1,5 @@
 import { getSocket } from './index.js'
+import { getMyState } from "./state.js"
 import './constants.js'
 
 const player = {
@@ -50,6 +51,9 @@ function onKeyUp(event) {
 		case 87: //w
 			player.forward = false;
 			break;
+		case 13: //ENTER for chat input
+			inputChat()
+			break;
 	}
 	const emit = {
 		"left": player.left,
@@ -58,6 +62,53 @@ function onKeyUp(event) {
 		"forward": player.forward
 	}
 	getSocket().emit('input', emit);
+}
+
+function inputChat(){
+
+		let text = document.querySelector(".mytext").value;
+		if (text !== ""){
+			let message = {
+					isMe: true,
+					username: getMyState().username,
+					text: text
+			}
+			receiveChat(message)
+			message.isMe = false;
+			getSocket().emit('chat', message)
+		}
+		document.querySelector(".mytext").value = ""
+}
+
+function receiveChat(message){
+	let isMe = message.isMe;
+	let username = message.username;
+	let text = message.text;
+	let appendMe = ""
+
+	if (isMe){
+			console.log("yes")
+			appendMe = '<li style="width:100%;">' +
+				'<div class="msj-rta macro">' +
+					'<div class="text text-r">' +
+						'<p>'+text+'</p>' +
+						'<p><small>'+username+'</small></p>' +
+					'</div>' +
+				'<div class="avatar" style="padding:0px 0px 0px 10px !important"></div>' +
+		  '</li>';
+	} else {
+			console.log("not")
+			appendMe = '<li style="width:100%">' +
+				'<div class="msj macro">' +
+					'<div class="text text-l">' +
+						'<p>'+ text +'</p>' +
+						'<p><small>'+username+'</small></p>' +
+					'</div>' +
+				'</div>' +
+			'</li>';                    
+	}
+
+	document.querySelector('ul').insertAdjacentHTML('beforeend', appendMe);
 }
 
 
@@ -76,4 +127,4 @@ function initInput(){
 	});
 }
 
-export { initInput }
+export { initInput, receiveChat }

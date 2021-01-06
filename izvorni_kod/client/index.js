@@ -1,6 +1,6 @@
 import {downloadAllAssets} from "./manageAssets.js"
 import * as Render from "./render.js"
-import { initInput } from "./input.js"
+import { initInput, receiveChat } from "./input.js"
 import { setState, setMap } from "./state.js"
 
 const socketProtocol = (window.location.protocol.includes('https')) ? 'wss' : 'ws';
@@ -21,6 +21,7 @@ async function start(){
 	socket.emit('join', joinUpdate)
 	socket.on('update', (update) => setState(update));
     socket.on('setmap', (map) => setMap(map));
+		socket.on('chat', (message) => receiveChat(message))
 	initInput();
 	Render.animate()
 }
