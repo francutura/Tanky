@@ -16,14 +16,30 @@ class Projectile {
 		this.skin = skin;
 	}
 
-	update(){
-		this.x += this.velocity.x
-        this.y += this.velocity.y
+	update(dt, map){
+		let x = this.x
+		let y = this.y
+		x += this.velocity.x
+        y += this.velocity.y
 		
 		// Destruction
-		if (this.x < 0 || this.y < 0 || this.x > Constants.MAP_SIZE || this.y > Constants.MAP_SIZE){
-			this.destroyed = true
+		if (x < 0 || y < 0 || x > Constants.MAP_SIZE || y > Constants.MAP_SIZE){
+			this.destroyed = true;
+			return
 		}
+
+
+		let xkor = Math.round(x/Constants.TILE_WIDTH)
+		let ykor = Math.round(y/Constants.TILE_HEIGHT)
+		if (ykor < map.length && xkor < map[0].length){
+			if (map[ykor][xkor] != 0){
+				this.destroyed = true;
+				return
+			}
+		}
+
+		this.x = x;
+		this.y = y;
 	}
 
 	isDestroyed(){

@@ -55,35 +55,79 @@ class Tank {
 		}
 	}
 
-	update(dt){
+	update(dt, map){
+		let xVelocity = this.xVelocity
+		let yVelocity = this.yVelocity
+		let power = this.power
+		let reverse = this.reverse
+		let angularVelocity = this.angularVelocity
+		let x = this.x
+		let y = this.y
+
 		if (this.isThrottling) {
-			this.power += Constants.POWER_FACTOR * this.isThrottling;
+			power += Constants.POWER_FACTOR * this.isThrottling;
 		} else {
-			this.power -= Constants.POWER_FACTOR;
+			power -= Constants.POWER_FACTOR;
 		}
 		if (this.isReversing) {
-			this.reverse += Constants.REVERSE_FACTOR;
+			reverse += Constants.REVERSE_FACTOR;
 		} else {
-			this.reverse -= Constants.REVERSE_FACTOR;
+			reverse -= Constants.REVERSE_FACTOR;
 		}
 		
-		this.power = Math.max(0, Math.min(Constants.MAX_POWER, this.power));
-		this.reverse = Math.max(0, Math.min(Constants.MAX_REVERSE, this.reverse));
+		power = Math.max(0, Math.min(Constants.MAX_POWER, power));
+		reverse = Math.max(0, Math.min(Constants.MAX_REVERSE, reverse));
 
-		let direction = this.power >= this.reverse ? 1 : -1;
+		let direction = power >= reverse ? 1 : -1;
 		
 		if (this.turningLeft) {
-			this.angularVelocity -= direction * Constants.TURN_SPEED * this.turningLeft;
+			angularVelocity -= direction * Constants.TURN_SPEED * this.turningLeft;
 		}
 		if (this.turningRight) {
-			this.angularVelocity += direction * Constants.TURN_SPEED * this.turningRight;
+			angularVelocity += direction * Constants.TURN_SPEED * this.turningRight;
 		}
 
-		this.xVelocity += Math.sin(this.bodya) * (this.power - this.reverse);
-		this.yVelocity += Math.cos(this.bodya) * (this.power - this.reverse);
+		xVelocity += Math.sin(this.bodya) * (power - reverse);
+		yVelocity += Math.cos(this.bodya) * (power - reverse);
 
-		this.x += this.xVelocity;
-		this.y -= this.yVelocity;
+		x += xVelocity;
+		y -= yVelocity;
+
+		this.xVelocity = xVelocity
+		this.yVelocity = yVelocity
+		this.power = power
+		this.reverse = reverse
+
+		if (x < 0 || y < 0 || x > Constants.MAP_SIZE || y > Constants.MAP_SIZE){
+				this.xVelocity = 0;
+				this.yVelocity = 0;
+				this.power = 0;
+				this.reverse = 0;
+				this.angularVelocity = 0;
+				return
+		}
+
+		let xkor = Math.round(x/Constants.TILE_WIDTH)
+		let ykor = Math.round(y/Constants.TILE_WIDTH)
+		if (ykor < map.length && xkor < map[0].length){
+			if (map[ykor][xkor] != 0){
+					this.xVelocity = 0;
+					this.yVelocity = 0;
+					this.power = 0;
+					this.reverse = 0;
+					this.angularVelocity = 0;
+				return
+			}
+		}
+
+		this.x = x;
+		this.y = y;
+		this.xVelocity = xVelocity
+		this.yVelocity = yVelocity
+		this.power = power
+		this.reverse = reverse
+		this.angularVelocity = angularVelocity
+
 		this.xVelocity *= Constants.DRAG;
 		this.yVelocity *= Constants.DRAG;
 		this.bodya += this.angularVelocity;

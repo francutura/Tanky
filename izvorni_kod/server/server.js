@@ -2,10 +2,12 @@ const express = require('express');
 const socketio = require('socket.io');
 const Tank = require('./tank');
 const Projectile = require('./projectile');
+const Constants = require('../const/constants');
 
 const sockets = {};
 const players = {};
 const projectiles = [];
+const map = [];
 
 const app = express();
 app.use(express.static('../client'))
@@ -14,6 +16,30 @@ app.use(express.static('../const'))
 const port = 6969
 const server = app.listen(port);
 console.log(`Server listening on port ${port}`);
+
+
+//SETUP MAP
+for (let i = 0; i < (Constants.MAP_SIZE / Constants.TILE_WIDTH); i++){
+		map.push([])
+		for (let j = 0; j < (Constants.MAP_SIZE / Constants.TILE_HEIGHT); j++){
+				map[i].push(0)
+		}
+}
+map[9][1] = 1;
+map[9][2] = 1;
+map[9][3] = 1;
+map[9][4] = 1;
+map[9][5] = 1;
+map[5][4] = 1;
+map[5][5] = 1;
+map[5][6] = 1;
+map[5][7] = 1;
+map[8][2] = 1;
+map[8][3] = 1;
+map[8][4] = 1;
+map[8][1] = 1;
+
+//SETUP MAP
 
 const io = socketio(server);
 
@@ -24,6 +50,7 @@ io.on('connection', socket => {
 
 	sockets[socket.id] = socket;
 
+	socket.emit('setmap', map);
 	socket.on('join', onJoin);
 });
 
@@ -41,14 +68,14 @@ function onJoin(join){
 		["matilda.svg", "matilda_top.svg"],
 		["pl-01.svg", "pl-01_top.svg"],
 		["sherman.svg", "sherman_top.svg"],
-		["t-34.svg", "t34_top.svg"],
-		["tankBase.png", "tankTurret.png"],
+		["t-34.svg", "t-34_top.svg"],
+		//["tankBase.png", "tankTurret.png"],
 		["tiger_131.svg", "tiger_131_top.svg"],
 	]
 	
 	let projektili = [
-		"boom.svg",
-		"bullet.png",
+		//"boom.svg",
+		//"bullet.png",
 		"kugla.svg"
 	]
 
@@ -57,7 +84,7 @@ function onJoin(join){
 	let tt = tenkici[itenkic][1]
 	let pp = projektili[Math.floor(Math.random() * projektili.length)]
 
-    players[socket.id] = new Tank(socket.id, join["username"], 10, 10, tb, tt, pp);
+    players[socket.id] = new Tank(socket.id, join["username"], 400, 400, tb, tt, pp);
 
 	socket.on('input', handleInput);
 	socket.on('fire', handleShot);
@@ -121,11 +148,11 @@ function getNearbyProjectiles(id){
 function update(){
 	Object.keys(players).forEach(playerID => {
 		const player = players[playerID];
-		player.update(1);
+		player.update(1, map);
 	});
 	Object.keys(projectiles).forEach(projectileID => {
 		let projectile = projectiles[projectileID];
-		projectile.update();
+		projectile.update(1, map);
 		Object.keys(players).forEach(playerID => {
 			let player = players[playerID]
 			if ((Math.abs(player.x - projectile.x) < 20

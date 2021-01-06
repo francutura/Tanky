@@ -1,7 +1,7 @@
-import {downloadAllAssets, getAsset} from "./manageAssets.js"
+import {downloadAllAssets} from "./manageAssets.js"
 import * as Render from "./render.js"
 import { initInput } from "./input.js"
-import { setState } from "./state.js"
+import { setState, setMap } from "./state.js"
 
 const socketProtocol = (window.location.protocol.includes('https')) ? 'wss' : 'ws';
 const socket = io(`${socketProtocol}://${window.location.host}`, { reconnection: false });
@@ -20,6 +20,7 @@ async function start(){
 	joinUpdate["username"] = nickname
 	socket.emit('join', joinUpdate)
 	socket.on('update', (update) => setState(update));
+    socket.on('setmap', (map) => setMap(map));
 	initInput();
 	Render.animate()
 }
