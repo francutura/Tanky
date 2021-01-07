@@ -38,7 +38,7 @@ function setMyState(update){
 
 	document.getElementById("leaderboard").innerHTML = ""
 	let row = document.createElement('div');
-	row.setAttribute('class', 'row');
+	row.setAttribute('class', 'rowic');
 	let entry_name = document.createElement("div")
 	let entry_score = document.createElement("div")
 	entry_name.setAttribute('class', 'name');
@@ -59,7 +59,7 @@ function setOthersState(update){
 		others[other.id] = other;
 
 		let row = document.createElement('div');
-		row.setAttribute('class', 'row');
+		row.setAttribute('class', 'rowic');
 		let entry_name = document.createElement("div")
 		let entry_score = document.createElement("div")
 		entry_name.setAttribute('class', 'name');

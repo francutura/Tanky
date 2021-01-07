@@ -3,25 +3,30 @@ import * as Render from "./render.js"
 import { initInput, receiveChat } from "./input.js"
 import { setState, setMap } from "./state.js"
 
-const socketProtocol = (window.location.protocol.includes('https')) ? 'wss' : 'ws';
-const socket = io(`${socketProtocol}://${window.location.host}`, { reconnection: false });
+var socket = {}
+var socketProtocol = (window.location.protocol.includes('https')) ? 'wss' : 'ws';
 
 async function connect(){
-	socket.on('connect', () => {
+	await socket.on('connect', () => {
 		console.log("Connected?");
 	});
 };
 
-async function start(){
-	downloadAllAssets();
+async function start(nickname){
+	socket = io(`${socketProtocol}://${window.location.host}`, { reconnection: false });
+
+	socket.on('update', (update) => setState(update));
+    socket.on('setmap', (map) => setMap(map));
+	socket.on('chat', (message) => receiveChat(message))
+	await downloadAllAssets();
 	await connect();
-	let nickname = sessionStorage.getItem("nick");
+    let addMe = `<div id="leaderboard">` + `<div class="rowic">` +`<div id="name" class="name">Player1</div><div class="score">0</div>` +`</div>` +`</div>` +`<div class="frame">` +`<ul></ul>` +`<input class="mytext" placeholder="Type a message" maxlength="160"/>` +`</div>` +`<canvas id = canvas></canvas>`
+	console.log(addMe)
+	$("body").append(addMe)
+	$("#removeme").remove()
 	let joinUpdate = {}
 	joinUpdate["username"] = nickname
 	socket.emit('join', joinUpdate)
-	socket.on('update', (update) => setState(update));
-    socket.on('setmap', (map) => setMap(map));
-		socket.on('chat', (message) => receiveChat(message))
 	initInput();
 	Render.animate()
 }
@@ -30,6 +35,4 @@ function getSocket(){
 	return socket;
 }
 
-start();
-
-export { getSocket }
+export { getSocket, start }

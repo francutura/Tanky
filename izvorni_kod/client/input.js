@@ -8,7 +8,6 @@ const player = {
 	backward: false,
 	forward: false
 };
-var canvas = document.querySelector('canvas');
 
 function onKeyDown(event) {
 	var keyCode = event.keyCode;
@@ -128,6 +127,7 @@ function receiveChat(message){
 
 
 function initInput(){
+	var canvas = document.querySelector('canvas');
 	addEventListener("keydown", onKeyDown, false);
 	addEventListener("keyup", onKeyUp, false);
 

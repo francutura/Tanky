@@ -2,18 +2,19 @@ const _ASSETS = ["boom.svg", "bullet.png", "kugla.svg", "M1A.svg", "M1A_top.svg"
 const assets = {}
 
 
-function downloadAsset(assetName) {
-	const asset = new Image();
-		asset.onload = () => {
-		console.log(`Downloaded ${assetName}`);
-	};
-	asset.src = `./assets/svgfiles/${assetName}`;
-	return asset
+async function downloadAsset(assetName) {
+
+   return new Promise((resolve, reject) => {
+		const asset = new Image();
+		asset.onload = () => resolve(asset)
+		asset.onerror = reject
+		asset.src = `./assets/svgfiles/${assetName}`;
+  	})
 }
 
-function downloadAllAssets(){
+async function downloadAllAssets(){
 	for (let asset of _ASSETS){
-		assets[asset] = downloadAsset(asset);
+		assets[asset] = await downloadAsset(asset);
 	}
 }
 
