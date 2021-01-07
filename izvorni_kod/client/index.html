@@ -37,7 +37,7 @@
   </head>
 
   <body>
-    <form class="form-signin"> <!--tu cu morat stavit <form action="/action_page.php" method="get"> da bi se poslao zahtjev-->
+    <form class="form-signin" onkeydown="return event.key != 'Enter';"> <!--tu cu morat stavit <form action="/action_page.php" method="get"> da bi se poslao zahtjev-->
       
       <div class="text-center mb-4">
         <img class="mb-4" src="assets/brand/bootstrap-solid.svg" alt="" width="72" height="72"> <!--tu neki tenkic svg?-->
@@ -52,7 +52,7 @@
 
 
       <button class="btn btn-lg btn-primary btn-block" type="button" id="showtext" name="showtext">Play</button>
-      <input class="btn btn-lg btn-primary btn-block" type="button" onclick="window.location.href='https://www.example.com';" value="Play as anonymous"/>
+	  <!--<input class="btn btn-lg btn-primary btn-block" type="button" onclick="window.location.href='https://www.example.com';" value="Play as anonymous"/> -->
       
 
       <div class="container" style="margin-top: 25px;margin-bottom: 25px;">
