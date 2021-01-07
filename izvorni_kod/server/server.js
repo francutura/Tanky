@@ -171,8 +171,9 @@ function update(){
 			  && projectile.player.id != playerID){
 				projectile.player.kills++;
 				projectile.destroyed = true
-				players[playerID].x = 10
-				players[playerID].y = 10
+				players[playerID].x = 100
+				players[playerID].y = 100
+				players[playerID].bodya = 1.57
 			}
 		});
 	})
