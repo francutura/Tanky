@@ -94,6 +94,10 @@ function onJoin(join){
 }
 
 function handleChat(message){
+
+	if (message.text.length > 160){
+		message.text = message.text.slice(0, 160)
+	}
 	
 	Object.keys(players).forEach(playerID => {
 		const socket = sockets[playerID];
