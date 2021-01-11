@@ -143,6 +143,21 @@ function onJoin(join){
 	socket.on('fire', handleShot);
 	socket.on('cangle', changeCannonAngle);
 	socket.on('disconnect', onDisconnect);
+	socket.on('chat', handleChat)
+}
+
+function handleChat(message){
+
+	if (message.text.length > 160){
+		message.text = message.text.slice(0, 160)
+	}
+	
+	Object.keys(players).forEach(playerID => {
+		const socket = sockets[playerID];
+		if (socket !== this) {
+				socket.emit('chat', message);
+		}
+	});
 }
 
 function onDisconnect(){
@@ -213,8 +228,9 @@ function update(){
 			  && projectile.player.id != playerID){
 				projectile.player.kills++;
 				projectile.destroyed = true
-				players[playerID].x = 10
-				players[playerID].y = 10
+				players[playerID].x = 100
+				players[playerID].y = 100
+				players[playerID].bodya = 1.57
 			}
 		});
 	})

@@ -3,11 +3,8 @@ import { getAsset } from "./manageAssets.js"
 import './constants.js'
 //import { TILE_HEIGHT, TILE_WIDTH } from "../const/constants.js";
 
-var canvas = document.querySelector('canvas');
-var ctx = canvas.getContext('2d');
-//TODO set canvas dimensions 
-canvas.width = innerWidth;
-canvas.height = innerHeight;
+var canvas = {};
+var ctx = {};
 
 function clear() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -98,6 +95,11 @@ function renderMap(me, tileMap) {
 }
 
 function animate(){
+	canvas = document.querySelector('canvas');
+	ctx = canvas.getContext('2d');
+	//TODO set canvas dimensions 
+	canvas.width = innerWidth;
+	canvas.height = innerHeight;
 	animateLoop()
 }
 

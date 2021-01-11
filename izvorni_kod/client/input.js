@@ -1,4 +1,5 @@
 import { getSocket } from './index.js'
+import { getMyState } from "./state.js"
 import './constants.js'
 
 const player = {
@@ -7,7 +8,6 @@ const player = {
 	backward: false,
 	forward: false
 };
-var canvas = document.querySelector('canvas');
 
 function onKeyDown(event) {
 	var keyCode = event.keyCode;
@@ -50,6 +50,9 @@ function onKeyUp(event) {
 		case 87: //w
 			player.forward = false;
 			break;
+		case 13: //ENTER for chat input
+			inputChat()
+			break;
 	}
 	const emit = {
 		"left": player.left,
@@ -60,8 +63,71 @@ function onKeyUp(event) {
 	getSocket().emit('input', emit);
 }
 
+function inputChat(){
+
+		let text = document.querySelector(".mytext").value;
+		if (text !== ""){
+			let message = {
+					isMe: true,
+					username: getMyState().username,
+					text: text
+			}
+			receiveChat(message)
+			message.isMe = false;
+			getSocket().emit('chat', message)
+		}
+		document.querySelector(".mytext").value = ""
+}
+
+function sanitize(string) {
+  const map = {
+      '&': '&amp;',
+      '<': '&lt;',
+      '>': '&gt;',
+      '"': '&quot;',
+      "'": '&#x27;',
+      "/": '&#x2F;',
+  };
+  const reg = /[&<>"'/]/ig;
+  return string.replace(reg, (match)=>(map[match]));
+}
+
+function receiveChat(message){
+	let isMe = message.isMe;
+	let username = message.username;
+	let text = message.text;
+	text = sanitize(text)
+	username = sanitize(username)
+	let appendMe = ""
+
+	if (isMe){
+			appendMe = '<li style="width:90%;">' +
+				'<div class="msj-rta macro">' +
+					'<div class="text text-r">' +
+						`<p> ${text} </p>` +
+						`<p><small>${username}</small></p>` +
+					'</div>' +
+				'<div class="avatar" style="padding:0px 0px 0px 10px !important"></div>' +
+		  '</li>';
+	} else {
+			appendMe = '<li style="width:90%">' +
+				'<div class="msj macro">' +
+					'<div class="text text-l">' +
+						`<p> ${text} </p>` +
+						`<p><small>${username}</small></p>` +
+					'</div>' +
+				'</div>' +
+			'</li>';                    
+	}
+
+	document.querySelector('ul').insertAdjacentHTML('beforeend', appendMe);
+	let scroll = document.querySelector("ul");
+	scroll.scrollTop = scroll.scrollHeight;
+}
+
 
 function initInput(){
+	var canvas = document.querySelector('canvas');
 	addEventListener("keydown", onKeyDown, false);
 	addEventListener("keyup", onKeyUp, false);
 
@@ -76,4 +142,4 @@ function initInput(){
 	});
 }
 
-export { initInput }
+export { initInput, receiveChat }
