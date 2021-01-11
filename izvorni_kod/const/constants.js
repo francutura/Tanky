@@ -18,6 +18,9 @@ TURN_SPEED: 0.002,
 	TILE_WIDTH: 50,
 	TILE_HEIGHT: 50,
 
+// MATCHMAKING
+	MAX_PLAYERS_ALLOWED: 2,
+
 });
 if (typeof window === 'undefined') {
 	module.exports = Constants;
