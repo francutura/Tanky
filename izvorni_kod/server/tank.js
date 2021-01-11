@@ -135,19 +135,24 @@ class Tank {
 		let x = this.x
 		let y = this.y
 
-		if (this.isThrottling) {
+		if (this.isThrottling && !this.wasThrottling) {
 			power += Constants.POWER_FACTOR;
 		} else {
 			power -= Constants.POWER_FACTOR;
 		}
-		if (this.isReversing) {
+		if (this.isReversing && !this.wasReversing) {
 			reverse += Constants.REVERSE_FACTOR;
 		} else {
 			reverse -= Constants.REVERSE_FACTOR;
 		}
+		if (this.wasThrottling || this.wasReversing){
+			power = Math.max(0, Math.max(Constants.MAX_POWER, power));
+			reverse = Math.max(0, Math.max(Constants.MAX_REVERSE, reverse));
+		} else {
+			power = Math.max(0, Math.min(Constants.MAX_POWER, power));
+			reverse = Math.max(0, Math.min(Constants.MAX_REVERSE, reverse));
+		}
 		
-		power = Math.max(0, Math.min(Constants.MAX_POWER, power));
-		reverse = Math.max(0, Math.min(Constants.MAX_REVERSE, reverse));
 
 		let direction = power >= reverse ? 1 : -1;
 		
@@ -189,22 +194,30 @@ class Tank {
 							} else if(this.wasReversing && this.isThrottling) {
 								break
 							} else if(this.isThrottling){
-								xVelocity += Math.sin(this.bodya) * 5 * 2;
-								yVelocity += Math.cos(this.bodya) * 5 * 2
-								this.x -= xVelocity
-								this.y += yVelocity
+								this.reverse = -Constants.MAX_POWER * 2
+								xVelocity += Math.sin(this.bodya) * (-this.reverse);
+								yVelocity += Math.cos(this.bodya) * (-this.reverse);
+													
+								x -= xVelocity;
+								y += yVelocity;
+								
 								this.xVelocity = 0
 								this.yVelocity = 0
-								this.power = 0;
+								//this.power = 0;
 								this.wasThrottling = true
-								return
-								//this.angularVelocity = 0;				
+								return			
 							} else if(this.isReversing){
-								x += -xVelocity;
-								y -= -yVelocity;
+								this.power = -Constants.MAX_POWER * 2
+
+								xVelocity += Math.sin(this.bodya) * (this.power);
+								yVelocity += Math.cos(this.bodya) * (this.power);
+													
+								x -= xVelocity;
+								y += yVelocity;
+
 								this.xVelocity = 0
 								this.yVelocity = 0
-								this.reverse = 0
+								//this.reverse = 0
 								this.wasReversing = true
 								return
 							}
