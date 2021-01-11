@@ -20,8 +20,6 @@ class Tank {
 		this.isReversing = false;
 		this.turningRight = false;
 		this.turningLeft = false;
-		this.wasThrottling = false
-		this.wasReversing = false
 
 		// Used for rotating tank
 		// body angle and cannon angle
@@ -135,23 +133,20 @@ class Tank {
 		let x = this.x
 		let y = this.y
 
-		if (this.isThrottling && !this.wasThrottling) {
+		if (this.isThrottling) {
 			power += Constants.POWER_FACTOR;
 		} else {
 			power -= Constants.POWER_FACTOR;
 		}
-		if (this.isReversing && !this.wasReversing) {
+		if (this.isReversing) {
 			reverse += Constants.REVERSE_FACTOR;
 		} else {
 			reverse -= Constants.REVERSE_FACTOR;
 		}
-		if (this.wasThrottling || this.wasReversing){
-			power = Math.max(0, Math.max(Constants.MAX_POWER, power));
-			reverse = Math.max(0, Math.max(Constants.MAX_REVERSE, reverse));
-		} else {
-			power = Math.max(0, Math.min(Constants.MAX_POWER, power));
-			reverse = Math.max(0, Math.min(Constants.MAX_REVERSE, reverse));
-		}
+		
+		power = Math.max(0, Math.min(Constants.MAX_POWER, power));
+		reverse = Math.max(0, Math.min(Constants.MAX_REVERSE, reverse));
+		
 		
 
 		let direction = power >= reverse ? 1 : -1;
@@ -168,106 +163,91 @@ class Tank {
 		//COLISION DETECTION BETWEEN MAP AND TANK
 		
 		let edges = this.calculateVertices(this.x, this.y, this.bodya)
-		
+		edges[4] = edges[0]
 		let tankTileLength = Math.ceil(Constants.PLAYER_HEIGHT / Constants.TILE_WIDTH) + 1
 		let xStart = Math.ceil(this.x / Constants.TILE_WIDTH) - tankTileLength
 		let yStart = Math.ceil(this.y / Constants.TILE_HEIGHT) - tankTileLength 
+		let mapEdges = [[0, 0], [Constants.MAP_SIZE, 0], [Constants.MAP_SIZE, Constants.MAP_SIZE], [0, Constants.MAP_SIZE], [0, 0]]
+
+		for(let i = 0; i < 4; i++){
+			for(let j = 0; j < 4; j++){
+				if (this.intersect(edges[i], edges[i + 1], mapEdges[j], mapEdges[j + 1])){
+					if (i == 0){
+						xVelocity += Math.sin((this.bodya + Math.PI) % (Math.PI * 2)) * 0.5;
+						yVelocity += Math.cos((this.bodya + Math.PI) % (Math.PI * 2)) * 0.5;
+											
+						this.x += xVelocity;
+						this.y -= yVelocity;
+					}
+					if (i == 2){
+						xVelocity += Math.sin((this.bodya) % (Math.PI * 2)) * 0.5;
+						yVelocity += Math.cos((this.bodya) % (Math.PI * 2)) * 0.5;
+											
+						this.x += xVelocity;
+						this.y -= yVelocity;
+					}
+					if(i == 3){
+						xVelocity += Math.sin((this.bodya + Math.PI/2) % (Math.PI * 2)) * 0.5;
+						yVelocity += Math.cos((this.bodya + Math.PI/2) % (Math.PI * 2)) * 0.5;
+											
+						this.x += xVelocity;
+						this.y -= yVelocity;
+					}
+					if(i == 1){
+						xVelocity += Math.sin((this.bodya - Math.PI/2) % (Math.PI * 2)) * 0.5;
+						yVelocity += Math.cos((this.bodya - Math.PI/2) % (Math.PI * 2)) * 0.5;
+											
+						this.x += xVelocity;
+						this.y -= yVelocity;
+					}				
+				}
+			}
+		}
 
 		for(let i = xStart ; i < xStart + 2 * tankTileLength + 1; i++){
 			for(let j = yStart; j < yStart + 2 * tankTileLength + 1; j++){
 				let tileVertices = [[i * Constants.TILE_WIDTH, j * Constants.TILE_HEIGHT], [i * Constants.TILE_WIDTH + Constants.TILE_WIDTH, j * Constants.TILE_HEIGHT],
 									[i * Constants.TILE_WIDTH + Constants.TILE_WIDTH, j * Constants.TILE_HEIGHT + Constants.TILE_HEIGHT], 
-									[i * Constants.TILE_WIDTH, j * Constants.TILE_HEIGHT + Constants.TILE_HEIGHT], [i * Constants.TILE_WIDTH, j * Constants.TILE_HEIGHT]]	
-				
-				edges[4] = edges[0]
+									[i * Constants.TILE_WIDTH, j * Constants.TILE_HEIGHT + Constants.TILE_HEIGHT], [i * Constants.TILE_WIDTH, j * Constants.TILE_HEIGHT]]
 				
 				for(let k = 0; k < 4; k++){
 					for(let l = 0; l < 4; l++){
-						if ((this.intersect(edges[k], edges[k + 1], tileVertices[l], tileVertices[l + 1])) && (map[j][i] == 1)){ 	
-							
-							if(this.wasThrottling && this.isThrottling){
-								return
-							} else if(this.wasReversing && this.isReversing) {
-								return
-							} else if(this.wasThrottling && this.isReversing) {
-								break
-							} else if(this.wasReversing && this.isThrottling) {
-								break
-							} else if(this.isThrottling){
-								this.reverse = -Constants.MAX_POWER * 2
-								xVelocity += Math.sin(this.bodya) * (-this.reverse);
-								yVelocity += Math.cos(this.bodya) * (-this.reverse);
+						if ((this.intersect(edges[k], edges[k + 1], tileVertices[l], tileVertices[l + 1])) && i >= 0 && j >= 0 && (map[j][i] == 1)){ 	
+							if (k == 0){
+								xVelocity += Math.sin((this.bodya + Math.PI) % (Math.PI * 2)) * 0.5;
+								yVelocity += Math.cos((this.bodya + Math.PI) % (Math.PI * 2)) * 0.5;
 													
-								x -= xVelocity;
-								y += yVelocity;
-								
-								this.xVelocity = 0
-								this.yVelocity = 0
-								//this.power = 0;
-								this.wasThrottling = true
-								return			
-							} else if(this.isReversing){
-								this.power = -Constants.MAX_POWER * 2
-
-								xVelocity += Math.sin(this.bodya) * (this.power);
-								yVelocity += Math.cos(this.bodya) * (this.power);
-													
-								x -= xVelocity;
-								y += yVelocity;
-
-								this.xVelocity = 0
-								this.yVelocity = 0
-								//this.reverse = 0
-								this.wasReversing = true
-								return
+								this.x += xVelocity;
+								this.y -= yVelocity;
 							}
-							
+							if (k ==2){
+								xVelocity += Math.sin((this.bodya) % (Math.PI * 2)) * 0.5;
+								yVelocity += Math.cos((this.bodya) % (Math.PI * 2)) * 0.5;
+													
+								this.x += xVelocity;
+								this.y -= yVelocity;
+							}
+							if(k == 3){
+								xVelocity += Math.sin((this.bodya + Math.PI/2) % (Math.PI * 2)) * 0.5;
+								yVelocity += Math.cos((this.bodya + Math.PI/2) % (Math.PI * 2)) * 0.5;
+													
+								this.x += xVelocity;
+								this.y -= yVelocity;
+							}
+							if(k == 1){
+								xVelocity += Math.sin((this.bodya - Math.PI/2) % (Math.PI * 2)) * 0.5;
+								yVelocity += Math.cos((this.bodya - Math.PI/2) % (Math.PI * 2)) * 0.5;
+													
+								this.x += xVelocity;
+								this.y -= yVelocity;
+							}							
 						}
 					}
 				}
-
 			}
 		}
+
 		
-
-		//console.log(Math.ceil(this.x / Constants.TILE_WIDTH), Math.ceil(this.y / Constants.TILE_HEIGHT))
-
-		/*
-		for(let i = 0; i < edges.length; i++){
-			if (edges[i][0] < 0 || edges[i][1] < 0 || edges[i][0] > Constants.MAP_SIZE || edges[i][1] > Constants.MAP_SIZE){
-				this.xVelocity = 0;
-				this.yVelocity = 0;
-				this.power = 0;
-				this.reverse = 0;
-				this.angularVelocity = 0;
-				return	
-			}
-		} */
-		/*
-		if (x < 0 || y < 0 || x > Constants.MAP_SIZE || y > Constants.MAP_SIZE){
-				this.xVelocity = 0;
-				this.yVelocity = 0;
-				this.power = 0;
-				this.reverse = 0;
-				this.angularVelocity = 0;
-				return
-		}
-
-		let xkor = Math.round(x/Constants.TILE_WIDTH)
-		let ykor = Math.round(y/Constants.TILE_WIDTH)
-		if (ykor < map.length && xkor < map[0].length){
-			if (map[ykor][xkor] != 0){
-					this.xVelocity = 0;
-					this.yVelocity = 0;
-					this.power = 0;
-					this.reverse = 0;
-					this.angularVelocity = 0;
-				return
-			}
-		}*/
-
-		this.wasThrottling = false
-		this.wasReversing = false
 
 		xVelocity += Math.sin(this.bodya) * (power - reverse);
 		yVelocity += Math.cos(this.bodya) * (power - reverse);
@@ -283,15 +263,10 @@ class Tank {
 		
 		this.x = x;
 		this.y = y;
-		///this.xVelocity = xVelocity
-		///this.yVelocity = yVelocity
-		///this.power = power
-		///this.reverse = reverse
 		this.angularVelocity = angularVelocity
 
 		this.xVelocity *= Constants.DRAG;
 		this.yVelocity *= Constants.DRAG;
-		//this.bodya += this.angularVelocity;
 		this.bodya = 0 + (this.bodya + this.angularVelocity)
 		if(this.bodya >= (2 * Math.PI) || this.bodya <= (-2 * Math.PI)){
 			this.bodya = 0
