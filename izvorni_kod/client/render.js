@@ -28,7 +28,8 @@ function renderTank(me, other){
 	ctx.drawImage(getAsset(other.bimg), -(window.Constants.PLAYER_WIDTH / 2), -(window.Constants.PLAYER_HEIGHT / 2), window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
 	rotateCannon(other)
 	ctx.drawImage(getAsset(other.timg), -(window.Constants.PLAYER_WIDTH / 2), -(window.Constants.PLAYER_HEIGHT / 2), window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
-	ctx.restore()	
+	ctx.restore()
+		
 }
 
 function renderProjectile(me, projectile){

@@ -213,7 +213,8 @@ class Tank {
 				
 				for(let k = 0; k < 4; k++){
 					for(let l = 0; l < 4; l++){
-						if ((this.intersect(edges[k], edges[k + 1], tileVertices[l], tileVertices[l + 1])) && i >= 0 && j >= 0 && (map[j][i] == 1)){ 	
+						if ((this.intersect(edges[k], edges[k + 1], tileVertices[l], tileVertices[l + 1])) && i >= 0 && 
+							i < Constants.MAP_SIZE / Constants.TILE_WIDTH && j >= 0 && j < Constants.MAP_SIZE / Constants.TILE_HEIGHT && (map[j][i] == 1)){ 	
 							if (k == 0){
 								xVelocity += Math.sin((this.bodya + Math.PI) % (Math.PI * 2)) * 0.5;
 								yVelocity += Math.cos((this.bodya + Math.PI) % (Math.PI * 2)) * 0.5;
