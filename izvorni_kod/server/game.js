@@ -75,10 +75,10 @@ class Game{
 			});
 		}
 
-		onDisconnect(){
+		onDisconnect(socket){
 			this.playernum -= 1;
-			delete this.sockets[this.id];
-			delete this.players[this.id];
+			delete this.sockets[socket.id];
+			delete this.players[socket.id];
 		}
 
 		handleInput(socket, input){

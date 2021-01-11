@@ -104,18 +104,26 @@ io.on('connection', socket => {
 });
 
 function joinGame(join){
+		let all_full = true
 		for (let i = 0; i < runningGames.length; i++){
 			let game = runningGames[i];
+			if (game.playernum <= Constants.MAX_PLAYERS_ALLOWED - 1){
+					all_full = false
+			}
+		}
+		if (all_full == true){
+			let temp = new Game()
+			runningGames.push(temp)
+			temp.setMap(map)
+			temp.onJoin(this, join);
+			return;
+		}
 
-			if (game.playernum > Constants.MAX_PLAYERS_ALLOWED - 1){
-				let temp = new Game()
-				runningGames.push(temp)
-				temp.setMap(map)
-				temp.onJoin(this, join);
-				return;
-			} else {
-				game.onJoin(this, join);
-				return;
+		for (let i = 0; i < runningGames.length; i++){
+			let game = runningGames[i];
+			if (game.playernum <= Constants.MAX_PLAYERS_ALLOWED - 1){
+					game.onJoin(this, join)
+					return
 			}
 		}
 }
