@@ -137,7 +137,7 @@ function initInput(){
 	});
 
 	addEventListener("mousemove", e => {
-		let angle = Math.atan2(e.offsetY - (canvas.height / 2 + window.Constants.PLAYER_HEIGHT / 2), e.offsetX - (canvas.width / 2 + window.Constants.PLAYER_WIDTH / 2))
+		let angle = Math.atan2(e.clientY - (canvas.height / 2 + window.Constants.PLAYER_HEIGHT / 2), e.clientX - (canvas.width / 2 + window.Constants.PLAYER_WIDTH / 2))
 		getSocket().emit('cangle', angle)
 	});
 }

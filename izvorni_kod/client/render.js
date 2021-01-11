@@ -1,7 +1,6 @@
 import { getMyState, getOthersState, getProjectiles, getMap } from "./state.js"
 import { getAsset } from "./manageAssets.js"
 import './constants.js'
-//import { TILE_HEIGHT, TILE_WIDTH } from "../const/constants.js";
 
 var canvas = {};
 var ctx = {};
@@ -24,13 +23,12 @@ function renderTank(me, other){
 	ctx.save()
 	ctx.translate(canvasx, canvasy)
 	me === other ? renderUserName(me) : renderUserName(other);
-
 	//Rotation
 	rotateBase(other)
 	ctx.drawImage(getAsset(other.bimg), -(window.Constants.PLAYER_WIDTH / 2), -(window.Constants.PLAYER_HEIGHT / 2), window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
 	rotateCannon(other)
 	ctx.drawImage(getAsset(other.timg), -(window.Constants.PLAYER_WIDTH / 2), -(window.Constants.PLAYER_HEIGHT / 2), window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
-	ctx.restore()
+	ctx.restore()	
 }
 
 function renderProjectile(me, projectile){
@@ -47,7 +45,6 @@ function rotateBase(player){
 	let width = window.Constants.PLAYER_WIDTH;
 	let height = window.Constants.PLAYER_HEIGHT; 
 	let rotation = player.bodya
-
 	ctx.translate(width/2 - (window.Constants.PLAYER_WIDTH / 2), height/2 - (window.Constants.PLAYER_HEIGHT / 2))
 	ctx.rotate(rotation)
 	ctx.translate(- width/2 + (window.Constants.PLAYER_WIDTH / 2), - height/2 + (window.Constants.PLAYER_HEIGHT / 2))
@@ -62,6 +59,7 @@ function rotateCannon(player){
 	ctx.rotate(rotation + Math.PI/2 - player.bodya)
 	ctx.translate(- width/2 + (window.Constants.PLAYER_WIDTH / 2), - height/2 + (window.Constants.PLAYER_HEIGHT / 2))
 }
+// OVO JE ORIGINALNA
 
 function renderMap(me, tileMap) {
 	if (tileMap.length == 0){
@@ -94,6 +92,7 @@ function renderMap(me, tileMap) {
 
 }
 
+
 function animate(){
 	canvas = document.querySelector('canvas');
 	ctx = canvas.getContext('2d');
@@ -113,7 +112,7 @@ function animateLoop() {
 	if (me) {
 		// Render ground
 		ctx.drawImage(getAsset("livada.svg"), canvas.width / 2 - me.x, canvas.height / 2 - me.y, window.Constants.MAP_SIZE, window.Constants.MAP_SIZE); 
-		renderMap(me, getMap())
+		renderMap(me, getMap()) 
 	}
 	renderTank(me, me);
 	Object.values(others).forEach((other) =>{
