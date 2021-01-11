@@ -20,6 +20,8 @@ class Tank {
 		this.isReversing = false;
 		this.turningRight = false;
 		this.turningLeft = false;
+		this.wasThrottling = false
+		this.wasReversing = false
 
 		// Used for rotating tank
 		// body angle and cannon angle
@@ -80,14 +82,6 @@ class Tank {
 
 		return edges;
 	}
-	/*
-	ccw(A, B, C){
-		return (C[1]-A[1])*(B[0]-A[0]) > (B[1]-A[1])*(C[0]-A[0])
-	}
-
-	intersection(A, B, C, D){
-		return this.ccw(A, C, D) != this.ccw(B, C, D) && this.ccw(A, B, C) != this.ccw(A, B, D)
-	}*/
 
 	onSegment(p, q, r){
 		if( (q[0] <= Math.max(p[0], r[0])) && (q[0] >= Math.min(p[0], r[0])) && (q[1] <= Math.max(p[1], r[1])) && (q[1] >= Math.min(p[1], r[1])))
@@ -142,7 +136,7 @@ class Tank {
 		let y = this.y
 
 		if (this.isThrottling) {
-			power += Constants.POWER_FACTOR * this.isThrottling;
+			power += Constants.POWER_FACTOR;
 		} else {
 			power -= Constants.POWER_FACTOR;
 		}
@@ -158,22 +152,13 @@ class Tank {
 		let direction = power >= reverse ? 1 : -1;
 		
 		if (this.turningLeft) {
-			angularVelocity -= direction * Constants.TURN_SPEED * this.turningLeft;
+			angularVelocity -= direction * Constants.TURN_SPEED;
 		}
 		if (this.turningRight) {
-			angularVelocity += direction * Constants.TURN_SPEED * this.turningRight;
+			angularVelocity += direction * Constants.TURN_SPEED;
 		}
 
-		xVelocity += Math.sin(this.bodya) * (power - reverse);
-		yVelocity += Math.cos(this.bodya) * (power - reverse);
-
-		x += xVelocity;
-		y -= yVelocity;
-
-		this.xVelocity = xVelocity
-		this.yVelocity = yVelocity
-		this.power = power
-		this.reverse = reverse
+		
 
 		//COLISION DETECTION BETWEEN MAP AND TANK
 		
@@ -195,26 +180,39 @@ class Tank {
 					for(let l = 0; l < 4; l++){
 						if ((this.intersect(edges[k], edges[k + 1], tileVertices[l], tileVertices[l + 1])) && (map[j][i] == 1)){ 	
 							
-							if(power - reverse > 0){
-								this.xVelocity = 0;
-								this.yVelocity = 0;
-								this.power = -power;
-								this.reverse = -reverse;
-								//this.angularVelocity = 0;
-								return				
+							if(this.wasThrottling && this.isThrottling){
+								return
+							} else if(this.wasReversing && this.isReversing) {
+								return
+							} else if(this.wasThrottling && this.isReversing) {
+								break
+							} else if(this.wasReversing && this.isThrottling) {
+								break
+							} else if(this.isThrottling){
+								xVelocity += Math.sin(this.bodya) * 5 * 2;
+								yVelocity += Math.cos(this.bodya) * 5 * 2
+								this.x -= xVelocity
+								this.y += yVelocity
+								this.xVelocity = 0
+								this.yVelocity = 0
+								this.power = 0;
+								this.wasThrottling = true
+								return
+								//this.angularVelocity = 0;				
+							} else if(this.isReversing){
+								x += -xVelocity;
+								y -= -yVelocity;
+								this.xVelocity = 0
+								this.yVelocity = 0
+								this.reverse = 0
+								this.wasReversing = true
+								return
 							}
-
-							//if(power - reverse > 0){
-							//	this.xVelocity = 0;
-							//	this.yVelocity = 0;
-							//	this.power = -power;
-							//	this.reverse = 5000;
-							//	//this.angularVelocity = 0;
-							//	return				
-							//}
+							
 						}
 					}
 				}
+
 			}
 		}
 		
@@ -254,13 +252,28 @@ class Tank {
 				return
 			}
 		}*/
-		
-		this.x = x;
-		this.y = y;
+
+		this.wasThrottling = false
+		this.wasReversing = false
+
+		xVelocity += Math.sin(this.bodya) * (power - reverse);
+		yVelocity += Math.cos(this.bodya) * (power - reverse);
+
+		x += xVelocity;
+		y -= yVelocity;
+
 		this.xVelocity = xVelocity
 		this.yVelocity = yVelocity
 		this.power = power
 		this.reverse = reverse
+
+		
+		this.x = x;
+		this.y = y;
+		///this.xVelocity = xVelocity
+		///this.yVelocity = yVelocity
+		///this.power = power
+		///this.reverse = reverse
 		this.angularVelocity = angularVelocity
 
 		this.xVelocity *= Constants.DRAG;
