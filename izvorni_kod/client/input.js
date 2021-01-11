@@ -64,16 +64,25 @@ function onKeyUp(event) {
 function initInput(){
 	addEventListener("keydown", onKeyDown, false);
 	addEventListener("keyup", onKeyUp, false);
-
 	addEventListener("click", (event) => {
-		let angle = Math.atan2(event.clientY - (canvas.height / 2 + window.Constants.PLAYER_HEIGHT / 2), event.clientX - (canvas.width / 2 + window.Constants.PLAYER_HEIGHT / 2))
+		let angle = Math.atan2(event.clientY - (canvas.height / 2), event.clientX - (canvas.width / 2))
 		getSocket().emit('fire', angle)
 	});
 
 	addEventListener("mousemove", e => {
-		let angle = Math.atan2(e.clientY - (canvas.height / 2 + window.Constants.PLAYER_HEIGHT / 2), e.clientX - (canvas.width / 2 + window.Constants.PLAYER_WIDTH / 2))
+		let angle = Math.atan2(e.clientY - (canvas.height / 2), e.clientX - (canvas.width / 2))
 		getSocket().emit('cangle', angle)
 	});
+	/*
+	addEventListener("click", (event) => {
+		let angle = Math.atan2(event.clientY - (canvas.height / 2 - window.Constants.PLAYER_HEIGHT / 2), event.clientX - (canvas.width / 2 - window.Constants.PLAYER_HEIGHT / 2))
+		getSocket().emit('fire', angle)
+	});
+
+	addEventListener("mousemove", e => {
+		let angle = Math.atan2(e.clientY - (canvas.height / 2 - window.Constants.PLAYER_HEIGHT / 2), e.clientX - (canvas.width / 2 - window.Constants.PLAYER_WIDTH / 2))
+		getSocket().emit('cangle', angle)
+	});*/
 }
 
 export { initInput }
