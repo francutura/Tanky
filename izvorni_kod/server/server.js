@@ -116,6 +116,7 @@ function joinGame(join){
 			runningGames.push(temp)
 			temp.setMap(map)
 			temp.onJoin(this, join);
+			console.log("joined new game");
 			return;
 		}
 
@@ -123,6 +124,7 @@ function joinGame(join){
 			let game = runningGames[i];
 			if (game.playernum <= Constants.MAX_PLAYERS_ALLOWED - 1){
 					game.onJoin(this, join)
+					console.log("joined old game: " + i);
 					return
 			}
 		}
