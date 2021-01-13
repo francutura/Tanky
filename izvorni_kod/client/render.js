@@ -27,7 +27,7 @@ function renderTank(me, other){
 	rotateBase(other)
 	ctx.drawImage(getAsset(other.bimg), -(window.Constants.PLAYER_WIDTH / 2), -(window.Constants.PLAYER_HEIGHT / 2), window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
 	rotateCannon(other)
-	ctx.drawImage(getAsset(other.timg), -(window.Constants.PLAYER_WIDTH * 1.5 / 2), -(window.Constants.PLAYER_HEIGHT * 1.5 / 2), window.Constants.PLAYER_WIDTH * 1.5, window.Constants.PLAYER_HEIGHT * 1.5);
+	ctx.drawImage(getAsset(other.timg), -(window.Constants.PLAYER_WIDTH * 1.75 / 2), -(window.Constants.PLAYER_HEIGHT * 1.75 / 2), window.Constants.PLAYER_WIDTH * 1.75, window.Constants.PLAYER_HEIGHT * 1.75);
 	ctx.restore()
 		
 }
