@@ -1,6 +1,7 @@
 import { getMyState, getOthersState, getProjectiles, getMap } from "./state.js"
 import { getAsset } from "./manageAssets.js"
 import './constants.js'
+import Constants from "../const/constants.js";
 
 var canvas = {};
 var ctx = {};
@@ -37,7 +38,7 @@ function renderProjectile(me, projectile){
 	let canvasy = canvas.height / 2 + projectile.y - me.y;
 	ctx.save()
 	ctx.translate(canvasx, canvasy)
-	ctx.drawImage(getAsset(projectile.skin), -(window.Constants.PLAYER_WIDTH / 2), -(window.Constants.PLAYER_HEIGHT / 2), window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
+	ctx.drawImage(getAsset(projectile.skin), -(window.Constants.PLAYER_WIDTH / 2), -(window.Constants.PLAYER_HEIGHT / 2), window.Constants.PROJECTILE_RADIUS, window.Constants.PROJECTILE_RADIUS);
 	ctx.restore()
 }
 
@@ -84,6 +85,12 @@ function renderMap(me, tileMap) {
 			if (i >= 0 && i < (Constants.MAP_SIZE / Constants.TILE_HEIGHT) && j >= 0 && j < (Constants.MAP_SIZE / Constants.TILE_WIDTH)){ 
 				if (tileMap[i][j] == 1) {
 					ctx.drawImage(getAsset("suhozid.svg"), j * window.Constants.TILE_WIDTH, i * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
+				}
+				if (tileMap[i][j] == Constants.SPEED_BOOST_TYPE) {
+					ctx.drawImage(getAsset("speedBoost.png"), j * window.Constants.TILE_WIDTH, i * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
+				}
+				if (tileMap[i][j] == Constants.TRIPLE_SHOT_TYPE) {
+					ctx.drawImage(getAsset("tripleShot.png"), j * window.Constants.TILE_WIDTH, i * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
 				}
 			}
 			
