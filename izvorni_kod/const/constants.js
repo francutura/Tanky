@@ -21,6 +21,12 @@ TURN_SPEED: 0.002,
 // MATCHMAKING
 	MAX_PLAYERS_ALLOWED: 2,
 
+// COLLECTIBLES
+	SPEED_BOOST_TYPE: 2,
+	TRIPLE_SHOT_TYPE: 3,
+	SPEED_BOOST_TIME: 30,
+	TRIPLE_SHOT_TIME: 30,
+
 });
 if (typeof window === 'undefined') {
 	module.exports = Constants;
