@@ -88,4 +88,12 @@ function setProjectileState(update){
 	});
 }
 
-export { getMyState, getOthersState, setState, getProjectiles, setMap, getMap }
+function spawnCollectible(collectible){
+	gameMap[collectible.mapY][collectible.mapX] = collectible.type;
+}
+
+function despawnCollectible(collectible){
+	gameMap[collectible.mapY][collectible.mapX] = 0;
+}
+
+export { getMyState, getOthersState, setState, getProjectiles, setMap, getMap, spawnCollectible, despawnCollectible }

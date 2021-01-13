@@ -145,8 +145,6 @@ class Game{
 				const socket = this.sockets[playerID];
 				socket.emit('spawn_collectible', tmp.serialize());
 			});
-
-			console.log("spawned collectible at: " + mapx + " " + mapy)
 		}
 
 		update(){
@@ -161,8 +159,10 @@ class Game{
 				collectible.update()
 				if (collectible.isDestroyed()){
 					this.collectibles.splice(i, 1);
-					socket.emit('despawn_collectible', tmp.serialize());
-					console.log("destroyed collectible at: " + collectible.mapX + " " + collectible.mapY)
+					Object.keys(this.players).forEach(playerID => {
+						const socket = this.sockets[playerID];
+						socket.emit('despawn_collectible', collectible.serialize());
+					});
 					break;
 				}
 			}

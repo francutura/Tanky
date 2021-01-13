@@ -1,7 +1,6 @@
 import { getMyState, getOthersState, getProjectiles, getMap } from "./state.js"
 import { getAsset } from "./manageAssets.js"
 import './constants.js'
-import Constants from "../const/constants.js";
 
 var canvas = {};
 var ctx = {};
