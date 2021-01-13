@@ -2,6 +2,7 @@ const socketio = require('socket.io');
 const Tank = require('./tank');
 const Projectile = require('./projectile');
 const Constants = require('../const/constants');
+const Collectible = require('./collectibles');
 
 class Game{
 
@@ -10,8 +11,10 @@ class Game{
 				this.sockets = {};
 				this.players = {};
 				this.projectiles = [];
+				this.collectibles = [];
 				this.map = [];
 				this.playernum = 0;
+				this.collectible_spawn_date = 0;
 				setInterval(this.update.bind(this), 1000 / 60);
 		}
 
@@ -126,7 +129,44 @@ class Game{
 			return temp
 		}
 
+		spawnCollectible(){
+			let mapx = 0;
+			let mapy = 0;
+
+			do{
+				mapx = Math.floor(Math.random() * this.map.length)
+				mapy = Math.floor(Math.random() * this.map[0].length)
+			} while(this.map[mapx][mapy] != 0)
+
+			let collectible_type = Constants.LIST_OF_COLLECTIBLES[Math.floor(Math.random() * Constants.LIST_OF_COLLECTIBLES.length)]
+			let tmp = new Collectible(Date.now(), collectible_type, mapx, mapy)
+			this.collectibles.push(tmp);
+			Object.keys(this.players).forEach(playerID => {
+				const socket = this.sockets[playerID];
+				socket.emit('spawn_collectible', tmp.serialize());
+			});
+
+			console.log("spawned collectible at: " + mapx + " " + mapy)
+		}
+
 		update(){
+
+			if (this.playernum > 0 && Date.now() - this.collectible_spawn_date > (Constants.COLLECTIBLES_SPAWN_RATE * 1000)){
+				this.collectible_spawn_date = Date.now();
+				this.spawnCollectible()
+			}
+
+			for (let i = 0; i < this.collectibles.length; i++){
+				let collectible = this.collectibles[i];
+				collectible.update()
+				if (collectible.isDestroyed()){
+					this.collectibles.splice(i, 1);
+					socket.emit('despawn_collectible', tmp.serialize());
+					console.log("destroyed collectible at: " + collectible.mapX + " " + collectible.mapY)
+					break;
+				}
+			}
+
 			Object.keys(this.players).forEach(playerID => {
 				const player = this.players[playerID];
 				player.update(1, this.map);
