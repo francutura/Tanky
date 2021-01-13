@@ -138,8 +138,8 @@ class Game{
 
 				Object.keys(this.players).forEach(playerID => {
 					let player = this.players[playerID]
-					if ((Math.abs(player.x - projectile.x) < 20
-					  && Math.abs(player.y - projectile.y) < 20)
+					if ((Math.abs(player.x - projectile.x) < Constants.PROJECTILE_RADIUS
+					  && Math.abs(player.y - projectile.y) < Constants.PROJECTILE_RADIUS)
 					  && projectile.player.id != playerID){
 						projectile.player.kills++;
 						projectile.destroyed = true
