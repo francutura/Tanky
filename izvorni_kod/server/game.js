@@ -126,6 +126,8 @@ class Game{
 			return temp
 		}
 
+
+
 		update(){
 			Object.keys(this.players).forEach(playerID => {
 				const player = this.players[playerID];
@@ -138,9 +140,7 @@ class Game{
 
 				Object.keys(this.players).forEach(playerID => {
 					let player = this.players[playerID]
-					if ((Math.abs(player.x - projectile.x) < Constants.PROJECTILE_RADIUS
-					  && Math.abs(player.y - projectile.y) < Constants.PROJECTILE_RADIUS)
-					  && projectile.player.id != playerID){
+					if (player.isColidingWithPorjectile(projectile.x, projectile.y) && projectile.player.id != playerID){
 						projectile.player.kills++;
 						projectile.destroyed = true
 						this.players[playerID].x = 100
