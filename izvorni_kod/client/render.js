@@ -110,8 +110,11 @@ function renderMap(me, tileMap) {
 				if (tileMap[i][j] == Constants.TRIPLE_SHOT_TYPE) {
 					ctx.drawImage(getAsset("tripleShot.png"), j * window.Constants.TILE_WIDTH, i * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
 				}
+				
+				if (tileMap[i][j] == Constants.HEALTH_REGEN_TYPE) {
+					ctx.drawImage(getAsset("healthRegen.png"), j * window.Constants.TILE_WIDTH, i * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
+				}
 			}
-			
 			ctx.restore()
 		}
 	}
