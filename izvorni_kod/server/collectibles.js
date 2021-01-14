@@ -18,6 +18,8 @@ class Collectible {
 			this.destroyed = true;
 		} else if (this.type == Constants.TRIPLE_SHOT_TYPE && Date.now() - this.time_created > (Constants.TRIPLE_SHOT_TIME * 1000)){
 			this.destroyed = true;
+		} else if (this.type == Constants.HEALTH_REGEN_TYPE && Date.now() - this.time_created > (Constants.HEALTH_REGEN_TIME * 1000)){
+			this.destroyed = true;
 		}
 	}
 

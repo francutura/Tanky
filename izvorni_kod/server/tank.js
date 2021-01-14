@@ -300,29 +300,38 @@ class Tank {
 						if ((this.intersect(edges[k], edges[k + 1], tileVertices[l], tileVertices[l + 1])) && i >= 0 && 
 							i < Constants.MAP_SIZE / Constants.TILE_WIDTH && j >= 0 && 
 							j < Constants.MAP_SIZE / Constants.TILE_HEIGHT && (map[j][i] == Constants.SPEED_BOOST_TYPE)){
-								for (let ii = 0; ii < collectibles.length; ii++){
-									let collectible = collectibles[ii];
-									if (collectible.mapX == i && collectible.mapY == j){
-										collectible.destroyed = true;
-										map[j][i] = 0
-										this.sanicTimeRemaining = Date.now() + Constants.SPEED_BOOST_DURATION * 1000;
-										this.isSanicActive = true;
-										break;
-									}
-								}
-						}
-						if ((this.intersect(edges[k], edges[k + 1], tileVertices[l], tileVertices[l + 1])) && i >= 0 && 
-							i < Constants.MAP_SIZE / Constants.TILE_WIDTH && j >= 0 && 
-							j < Constants.MAP_SIZE / Constants.TILE_HEIGHT && (map[j][i] == Constants.TRIPLE_SHOT_TYPE)){
-								for (let ii = 0; ii < collectibles.length; ii++){
-									let collectible = collectibles[ii];
-									if (collectible.mapX == i && collectible.mapY == j){
-										collectible.destroyed = true;
-										map[j][i] = 0
-										this.tripleShotTimeRemaining = Date.now() + Constants.TRIPLE_SHOT_DURATION * 1000;
-										this.isTripleShotActive = true;
-										break;
-									}
+								if (map[j][i] == Constants.SPEED_BOOST_TYPE){
+										for (let ii = 0; ii < collectibles.length; ii++){
+											let collectible = collectibles[ii];
+											if (collectible.mapX == i && collectible.mapY == j){
+												collectible.destroyed = true;
+												map[j][i] = 0;
+												this.sanicTimeRemaining = Date.now() + Constants.SPEED_BOOST_DURATION * 1000;
+												this.isSanicActive = true;
+												break;
+											}
+										}
+								} else if (map[j][i] == Constants.TRIPLE_SHOT_TYPE){
+										for (let ii = 0; ii < collectibles.length; ii++){
+											let collectible = collectibles[ii];
+											if (collectible.mapX == i && collectible.mapY == j){
+												collectible.destroyed = true;
+												map[j][i] = 0;
+												this.tripleShotTimeRemaining = Date.now() + Constants.TRIPLE_SHOT_DURATION * 1000;
+												this.isTripleShotActive = true;
+												break;
+											}
+										}
+								} else if (map[j][i] == Constants.HEALTH_REGEN_TYPE){
+										for (let ii = 0; ii < collectibles.length; ii++){
+											let collectible = collectibles[ii];
+											if (collectible.mapX == i && collectible.mapY == j){
+												collectible.destroyed = true;
+												map[j][i] = 0;
+												this.hp = Constants.PLAYER_MAX_HP;
+												break;
+											}
+										}
 								}
 						}
 					}
