@@ -143,7 +143,7 @@ class Game{
 			do{
 				mapx = Math.floor(Math.random() * this.map.length)
 				mapy = Math.floor(Math.random() * this.map[0].length)
-			} while(this.map[mapx][mapy] != 0)
+			} while(this.map[mapy][mapx] != 0)
 
 			let collectible_type = Constants.LIST_OF_COLLECTIBLES[Math.floor(Math.random() * Constants.LIST_OF_COLLECTIBLES.length)]
 			let tmp = new Collectible(Date.now(), collectible_type, mapx, mapy)
