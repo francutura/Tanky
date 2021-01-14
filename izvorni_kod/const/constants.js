@@ -37,6 +37,9 @@ TURN_SPEED: 0.002,
 		TRIPLE_SHOT_TIME: 30,
 		TRIPLE_SHOT_DURATION: 10,
 		TRIPLE_SHOT_ANGLE: 0.2,
+		// HEALTH REGEN
+		HEALTH_REGEN_TYPE: 4,
+		HEALTH_REGEN_TIME: 30,
 
 });
 if (typeof window === 'undefined') {
