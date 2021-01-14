@@ -103,6 +103,12 @@ class Game{
 		//TODO implement
 		handleShot(socket, angle){
 			if (this.players[socket.id] && Date.now() - this.players[socket.id].last_shot_date > 1000){
+				if (this.players[socket.id].isTripleShotActive === true){
+					let projectile2 = new Projectile(this.players[socket.id], this.players[socket.id].x, this.players[socket.id].y, angle + Constants.TRIPLE_SHOT_ANGLE, this.players[socket.id].bulletSkin)
+					let projectile3 = new Projectile(this.players[socket.id], this.players[socket.id].x, this.players[socket.id].y, angle - Constants.TRIPLE_SHOT_ANGLE, this.players[socket.id].bulletSkin)
+				this.projectiles.push(projectile2);
+				this.projectiles.push(projectile3);
+				}
 				let projectile = new Projectile(this.players[socket.id], this.players[socket.id].x, this.players[socket.id].y, angle, this.players[socket.id].bulletSkin)
 				this.projectiles.push(projectile);
 				this.players[socket.id].last_shot_date = Date.now();
@@ -171,7 +177,7 @@ class Game{
 
 			Object.keys(this.players).forEach(playerID => {
 				const player = this.players[playerID];
-				player.update(1, this.map);
+				player.update(1, this.map, this.collectibles);
 			});
 
 			Object.keys(this.projectiles).forEach(projectileID => {
