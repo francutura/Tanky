@@ -147,7 +147,6 @@ class Game{
 				socket.emit('spawn_collectible', tmp.serialize());
 			});
 		}
-
 		update(){
 
 			if (this.playernum > 0 && Date.now() - this.collectible_spawn_date > (Constants.COLLECTIBLES_SPAWN_RATE * 1000)){
@@ -180,9 +179,7 @@ class Game{
 
 				Object.keys(this.players).forEach(playerID => {
 					let player = this.players[playerID]
-					if ((Math.abs(player.x - projectile.x) < Constants.PROJECTILE_RADIUS
-					  && Math.abs(player.y - projectile.y) < Constants.PROJECTILE_RADIUS)
-					  && projectile.player.id != playerID){
+					if (player.isColidingWithPorjectile(projectile.x, projectile.y) && projectile.player.id != playerID){
 						projectile.player.kills++;
 						projectile.destroyed = true
 						this.players[playerID].x = 100

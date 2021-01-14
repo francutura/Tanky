@@ -82,6 +82,24 @@ class Tank {
 		return edges;
 	}
 
+	vertexEdgeRelation(xp, yp, x1, y1, x2, y2){
+		let A = +(y2 - y1)
+		let B = x2 - x1
+		let C = -(A * x1 - B * y1)
+		return (A * xp + B * - yp + C)
+	}
+
+	isColidingWithPorjectile(x, y){
+		let edges = this.calculateVertices(this.x, this.y, this.bodya)
+		edges[4] = edges[0]
+		for(let i = 0; i < 4; i++){
+			if(this.vertexEdgeRelation(x, y, edges[i][0], edges[i][1], edges[i+1][0], edges[i+1][1]) > 0){
+				return false
+			}
+		}
+		return true
+	}
+
 	onSegment(p, q, r){
 		if( (q[0] <= Math.max(p[0], r[0])) && (q[0] >= Math.min(p[0], r[0])) && (q[1] <= Math.max(p[1], r[1])) && (q[1] >= Math.min(p[1], r[1])))
 			return true
