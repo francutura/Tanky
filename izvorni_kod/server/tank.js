@@ -299,7 +299,7 @@ class Tank {
 						}
 						if ((this.intersect(edges[k], edges[k + 1], tileVertices[l], tileVertices[l + 1])) && i >= 0 && 
 							i < Constants.MAP_SIZE / Constants.TILE_WIDTH && j >= 0 && 
-							j < Constants.MAP_SIZE / Constants.TILE_HEIGHT && (map[j][i] == Constants.SPEED_BOOST_TYPE)){
+							j < Constants.MAP_SIZE / Constants.TILE_HEIGHT){
 								if (map[j][i] == Constants.SPEED_BOOST_TYPE){
 										for (let ii = 0; ii < collectibles.length; ii++){
 											let collectible = collectibles[ii];
