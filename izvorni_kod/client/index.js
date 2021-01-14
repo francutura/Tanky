@@ -8,7 +8,7 @@ var socketProtocol = (window.location.protocol.includes('https')) ? 'wss' : 'ws'
 
 async function connect(){
 	await socket.on('connect', () => {
-		console.log("Connected?");
+		console.log("Connected to server");
 	});
 };
 
@@ -24,7 +24,6 @@ async function start(nickname){
 	await downloadAllAssets();
 	await connect();
     let addMe = `<div id="leaderboard">` + `<div class="rowic">` +`<div id="name" class="name">Player1</div><div class="score">0</div>` +`</div>` +`</div>` +`<div class="frame">` +`<ul></ul>` +`<input class="mytext" placeholder="Type a message" maxlength="160"/>` +`</div>` +`<canvas id = canvas></canvas>`
-	console.log(addMe)
 	$("body").append(addMe)
 	$("#removeme").remove()
 	let joinUpdate = {}

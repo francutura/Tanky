@@ -77,7 +77,6 @@ function setOthersState(update){
 }
 
 function setMap(map){
-		console.log(map)
 		gameMap = [...map];
 }
 

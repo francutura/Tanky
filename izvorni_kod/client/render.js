@@ -102,6 +102,8 @@ function animate(){
 	canvas = document.querySelector('canvas');
 	ctx = canvas.getContext('2d');
 	//TODO set canvas dimensions 
+	innerWidth = innerWidth > 1920 ? 1920 : innerWidth;
+	innerHeight = innerHeight > 1080 ? 1080 : innerHeight;
 	canvas.width = innerWidth;
 	canvas.height = innerHeight;
 	animateLoop()
