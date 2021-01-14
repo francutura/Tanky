@@ -13,6 +13,7 @@ class Game{
 				this.projectiles = [];
 				this.collectibles = [];
 				this.map = [];
+				this.spawn_points = [];
 				this.playernum = 0;
 				this.collectible_spawn_date = 0;
 				setInterval(this.update.bind(this), 1000 / 60);
@@ -103,6 +104,12 @@ class Game{
 		//TODO implement
 		handleShot(socket, angle){
 			if (this.players[socket.id] && Date.now() - this.players[socket.id].last_shot_date > 1000){
+				if (this.players[socket.id].isTripleShotActive === true){
+					let projectile2 = new Projectile(this.players[socket.id], this.players[socket.id].x, this.players[socket.id].y, angle + Constants.TRIPLE_SHOT_ANGLE, this.players[socket.id].bulletSkin)
+					let projectile3 = new Projectile(this.players[socket.id], this.players[socket.id].x, this.players[socket.id].y, angle - Constants.TRIPLE_SHOT_ANGLE, this.players[socket.id].bulletSkin)
+				this.projectiles.push(projectile2);
+				this.projectiles.push(projectile3);
+				}
 				let projectile = new Projectile(this.players[socket.id], this.players[socket.id].x, this.players[socket.id].y, angle, this.players[socket.id].bulletSkin)
 				this.projectiles.push(projectile);
 				this.players[socket.id].last_shot_date = Date.now();
@@ -136,7 +143,7 @@ class Game{
 			do{
 				mapx = Math.floor(Math.random() * this.map.length)
 				mapy = Math.floor(Math.random() * this.map[0].length)
-			} while(this.map[mapx][mapy] != 0)
+			} while(this.map[mapy][mapx] != 0)
 
 			let collectible_type = Constants.LIST_OF_COLLECTIBLES[Math.floor(Math.random() * Constants.LIST_OF_COLLECTIBLES.length)]
 			let tmp = new Collectible(Date.now(), collectible_type, mapx, mapy)
@@ -170,7 +177,7 @@ class Game{
 
 			Object.keys(this.players).forEach(playerID => {
 				const player = this.players[playerID];
-				player.update(1, this.map);
+				player.update(1, this.map, this.collectibles);
 			});
 
 			Object.keys(this.projectiles).forEach(projectileID => {
@@ -182,9 +189,10 @@ class Game{
 					if (player.isColidingWithPorjectile(projectile.x, projectile.y) && projectile.player.id != playerID){
 						projectile.player.kills++;
 						projectile.destroyed = true
-						this.players[playerID].x = 100
-						this.players[playerID].y = 100
-						this.players[playerID].bodya = 1.57
+						let respawn = this.spawn_points[Math.floor(Math.random() * this.spawn_points.length)]
+						player.x = respawn.x
+						player.y = respawn.y
+						player.bodya = respawn.bodya
 					}
 				});
 			})

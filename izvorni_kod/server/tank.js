@@ -10,6 +10,12 @@ class Tank {
 		this.turretImg = turretImg;
 		this.bulletSkin = bulletSkin;
 		this.kills = 0;
+
+		// Collectibles
+		this.isSanicActive = false;
+		this.sanicTimeRemaining = 0;
+		this.isTripleShotActive = false;
+		this.tripleShotTimeRemaining = 0;
 		
 		//Physics
 		this.xVelocity = 0;
@@ -143,7 +149,16 @@ class Tank {
     	return false
 	}
 
-	update(dt, map){
+	update(dt, map, collectibles){
+
+		if (this.isSanicActive && Date.now() - this.sanicTimeRemaining > 0){
+			this.isSanicActive = false;
+		}
+
+		if (this.isTripleShotActive && Date.now() - this.tripleShotTimeRemaining > 0){
+			this.isTripleShotActive = false;
+		}
+
 		let xVelocity = this.xVelocity
 		let yVelocity = this.yVelocity
 		let power = this.power
@@ -163,9 +178,16 @@ class Tank {
 			reverse -= Constants.REVERSE_FACTOR;
 		}
 		
-		power = Math.max(0, Math.min(Constants.MAX_POWER, power));
-		reverse = Math.max(0, Math.min(Constants.MAX_REVERSE, reverse));
-		
+		if (this.isSanicActive == true){
+			power = Math.max(0, Math.min(Constants.MAX_POWER * 2, power));
+		} else {
+			power = Math.max(0, Math.min(Constants.MAX_POWER, power));
+		}
+		if (this.isSanicActive == true){
+			reverse = Math.max(0, Math.min(Constants.MAX_REVERSE * 2, reverse));
+		} else {
+			reverse = Math.max(0, Math.min(Constants.MAX_REVERSE, reverse));
+		}
 		
 
 		let direction = power >= reverse ? 1 : -1;
@@ -265,12 +287,30 @@ class Tank {
 						if ((this.intersect(edges[k], edges[k + 1], tileVertices[l], tileVertices[l + 1])) && i >= 0 && 
 							i < Constants.MAP_SIZE / Constants.TILE_WIDTH && j >= 0 && 
 							j < Constants.MAP_SIZE / Constants.TILE_HEIGHT && (map[j][i] == Constants.SPEED_BOOST_TYPE)){
-								console.log("I hit saniccc")
+								for (let ii = 0; ii < collectibles.length; ii++){
+									let collectible = collectibles[ii];
+									if (collectible.mapX == i && collectible.mapY == j){
+										collectible.destroyed = true;
+										map[j][i] = 0
+										this.sanicTimeRemaining = Date.now() + Constants.SPEED_BOOST_DURATION * 1000;
+										this.isSanicActive = true;
+										break;
+									}
+								}
 						}
 						if ((this.intersect(edges[k], edges[k + 1], tileVertices[l], tileVertices[l + 1])) && i >= 0 && 
 							i < Constants.MAP_SIZE / Constants.TILE_WIDTH && j >= 0 && 
 							j < Constants.MAP_SIZE / Constants.TILE_HEIGHT && (map[j][i] == Constants.TRIPLE_SHOT_TYPE)){
-								console.log("I hit Tripe shot woo")
+								for (let ii = 0; ii < collectibles.length; ii++){
+									let collectible = collectibles[ii];
+									if (collectible.mapX == i && collectible.mapY == j){
+										collectible.destroyed = true;
+										map[j][i] = 0
+										this.tripleShotTimeRemaining = Date.now() + Constants.TRIPLE_SHOT_DURATION * 1000;
+										this.isTripleShotActive = true;
+										break;
+									}
+								}
 						}
 					}
 				}
