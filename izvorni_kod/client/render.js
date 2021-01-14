@@ -21,13 +21,14 @@ function renderTank(me, other){
 	ctx.save()
 	ctx.translate(canvasx, canvasy)
 	me === other ? renderUserName(me) : renderUserName(other);
+	me === other ? renderHP(me) : renderHP(other);
 	//Rotation
 	rotateBase(other)
 	ctx.drawImage(getAsset(other.bimg), -(window.Constants.PLAYER_WIDTH / 2), -(window.Constants.PLAYER_HEIGHT / 2), window.Constants.PLAYER_WIDTH, window.Constants.PLAYER_HEIGHT);
 	rotateCannon(other)
 	ctx.drawImage(getAsset(other.timg), -(window.Constants.PLAYER_WIDTH * 1.75 / 2), -(window.Constants.PLAYER_HEIGHT * 1.75 / 2), window.Constants.PLAYER_WIDTH * 1.75, window.Constants.PLAYER_HEIGHT * 1.75);
 	ctx.restore()
-		
+	
 }
 
 function renderProjectile(me, projectile){
@@ -38,6 +39,26 @@ function renderProjectile(me, projectile){
 	ctx.drawImage(getAsset(projectile.skin),  -window.Constants.PROJECTILE_RADIUS / 2, -window.Constants.PROJECTILE_RADIUS / 2, window.Constants.PROJECTILE_RADIUS, window.Constants.PROJECTILE_RADIUS);
 	ctx.restore()
 }
+
+function renderHP(me){
+	ctx.save()
+	ctx.translate(-window.Constants.PLAYER_WIDTH/2, window.Constants.PLAYER_HEIGHT/2)
+	ctx.fillStyle = 'blue';
+	ctx.fillRect(
+		0,
+		0,
+		window.Constants.PLAYER_WIDTH,
+		3,
+	);
+	ctx.fillStyle = 'red';
+	ctx.fillRect(
+		0 + window.Constants.PLAYER_WIDTH * me.hp / window.Constants.PLAYER_MAX_HP,
+		0,
+		window.Constants.PLAYER_WIDTH * (1 - me.hp / window.Constants.PLAYER_MAX_HP),
+		3,
+	);
+	ctx.restore()
+	}
 
 function rotateBase(player){
 	//TODO move to globals
