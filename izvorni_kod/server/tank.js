@@ -244,6 +244,16 @@ class Tank {
 								this.y -= yVelocity;
 							}							
 						}
+						if ((this.intersect(edges[k], edges[k + 1], tileVertices[l], tileVertices[l + 1])) && i >= 0 && 
+							i < Constants.MAP_SIZE / Constants.TILE_WIDTH && j >= 0 && 
+							j < Constants.MAP_SIZE / Constants.TILE_HEIGHT && (map[j][i] == Constants.SPEED_BOOST_TYPE)){
+								console.log("I hit saniccc")
+						}
+						if ((this.intersect(edges[k], edges[k + 1], tileVertices[l], tileVertices[l + 1])) && i >= 0 && 
+							i < Constants.MAP_SIZE / Constants.TILE_WIDTH && j >= 0 && 
+							j < Constants.MAP_SIZE / Constants.TILE_HEIGHT && (map[j][i] == Constants.TRIPLE_SHOT_TYPE)){
+								console.log("I hit Tripe shot woo")
+						}
 					}
 				}
 			}

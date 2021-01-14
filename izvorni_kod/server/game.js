@@ -141,6 +141,7 @@ class Game{
 			let collectible_type = Constants.LIST_OF_COLLECTIBLES[Math.floor(Math.random() * Constants.LIST_OF_COLLECTIBLES.length)]
 			let tmp = new Collectible(Date.now(), collectible_type, mapx, mapy)
 			this.collectibles.push(tmp);
+			this.map[mapy][mapx] = collectible_type;
 			Object.keys(this.players).forEach(playerID => {
 				const socket = this.sockets[playerID];
 				socket.emit('spawn_collectible', tmp.serialize());
@@ -159,6 +160,7 @@ class Game{
 				collectible.update()
 				if (collectible.isDestroyed()){
 					this.collectibles.splice(i, 1);
+					this.map[collectible.mapY][collectible.mapX] = 0;
 					Object.keys(this.players).forEach(playerID => {
 						const socket = this.sockets[playerID];
 						socket.emit('despawn_collectible', collectible.serialize());
