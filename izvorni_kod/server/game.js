@@ -187,12 +187,15 @@ class Game{
 				Object.keys(this.players).forEach(playerID => {
 					let player = this.players[playerID]
 					if (player.isColidingWithPorjectile(projectile.x, projectile.y) && projectile.player.id != playerID){
-						projectile.player.kills++;
 						projectile.destroyed = true
-						let respawn = this.spawn_points[Math.floor(Math.random() * this.spawn_points.length)]
-						player.x = respawn.x
-						player.y = respawn.y
-						player.bodya = respawn.bodya
+						player.hp = player.hp - Constants.PROJECTILE_DAMAGE
+
+						if (player.isDestroyed()){
+							projectile.player.kills++;
+							let respawn_point = this.spawn_points[Math.floor(Math.random() * this.spawn_points.length)]
+							player.respawn(respawn_point)
+						}
+
 					}
 				});
 			})

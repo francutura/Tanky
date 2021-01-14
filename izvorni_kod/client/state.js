@@ -1,4 +1,4 @@
-const me = {x: 0, y: 0, username:"None", bodya: 0, cannona: 0, bimg: "tankBase.png", timg: "tankTurret.png", kills: 0};
+const me = {x: 0, y: 0, username:"None", bodya: 0, cannona: 0, bimg: "tankBase.png", timg: "tankTurret.png", kills: 0, hp: 100};
 const others = {}
 const projectiles = {}
 var gameMap = []
@@ -35,6 +35,7 @@ function setMyState(update){
 	me.bimg = main['bimg']
 	me.timg = main['timg']
 	me.kills = main['kills'];
+	me.hp = main['hp'];
 
 	document.getElementById("leaderboard").innerHTML = ""
 	let row = document.createElement('div');

@@ -5,6 +5,7 @@ class Tank {
 		this.id = id;
 		this.x = x;
 		this.y = y;
+		this.hp = Constants.PLAYER_MAX_HP;
 		this.username = username;
 		this.baseImg = baseImg;
 		this.turretImg = turretImg;
@@ -61,7 +62,19 @@ class Tank {
 			this.turningRight = false;
 		}
 	}
-	
+
+	isDestroyed(){
+		return (this.hp <= 0);
+	}
+
+	respawn(respawn_point){
+		this.hp = Constants.PLAYER_MAX_HP
+		this.isSanicActive = false;
+		this.isTripleShotActive = false;
+		this.x = respawn_point.x
+		this.y = respawn_point.y
+		this.bodya = respawn_point.bodya
+	}
 	
 	calculateVertices(x, y, bodya){
 		if(bodya < 0){
@@ -351,6 +364,7 @@ class Tank {
 			username: this.username,
 			x: this.x,
 			y: this.y,
+			hp: this.hp,
 			bodya: this.bodya,
 			cannona: this.cannona,
 			bimg: this.baseImg,
