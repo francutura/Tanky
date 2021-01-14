@@ -38,7 +38,7 @@ function renderProjectile(me, projectile){
 	let canvasy = canvas.height / 2 + projectile.y - me.y;
 	ctx.save()
 	ctx.translate(canvasx, canvasy)
-	ctx.drawImage(getAsset(projectile.skin), -(window.Constants.PLAYER_WIDTH / 2), -(window.Constants.PLAYER_HEIGHT / 2), window.Constants.PROJECTILE_RADIUS, window.Constants.PROJECTILE_RADIUS);
+	ctx.drawImage(getAsset(projectile.skin),  -window.Constants.PROJECTILE_RADIUS / 2, -window.Constants.PROJECTILE_RADIUS / 2, window.Constants.PROJECTILE_RADIUS, window.Constants.PROJECTILE_RADIUS);
 	ctx.restore()
 }
 
