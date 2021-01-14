@@ -62,8 +62,8 @@ class Map {
 
     push_point(x_point, y_point, bodya_point){
         let point = {
-            x: x_point,
-            y: y_point,
+            x: x_point * Constants.TILE_WIDTH,
+            y: y_point * Constants.TILE_HEIGHT,
             bodya: bodya_point
         }
         this.spawn_points.push(point)

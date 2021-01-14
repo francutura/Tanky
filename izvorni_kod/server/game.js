@@ -13,6 +13,7 @@ class Game{
 				this.projectiles = [];
 				this.collectibles = [];
 				this.map = [];
+				this.spawn_points = [];
 				this.playernum = 0;
 				this.collectible_spawn_date = 0;
 				setInterval(this.update.bind(this), 1000 / 60);
@@ -191,9 +192,10 @@ class Game{
 					  && projectile.player.id != playerID){
 						projectile.player.kills++;
 						projectile.destroyed = true
-						this.players[playerID].x = 100
-						this.players[playerID].y = 100
-						this.players[playerID].bodya = 1.57
+						let respawn = this.spawn_points[Math.floor(Math.random() * this.spawn_points.length)]
+						player.x = respawn.x
+						player.y = respawn.y
+						player.bodya = respawn.bodya
 					}
 				});
 			})

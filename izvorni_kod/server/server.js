@@ -39,6 +39,7 @@ const first = new Game();
 const runningGames = []
 runningGames.push(first)
 first.setMap(deepCopyFunction(mg.map))
+first.spawn_points = deepCopyFunction(mg.spawn_points)
 
 io.on('connection', socket => {
 	let handshake = socket.handshake;
@@ -60,6 +61,7 @@ function joinGame(join){
 			mg.random_map()
 			runningGames.push(temp)
 			temp.setMap(deepCopyFunction(mg.map))
+			temp.spawn_points = deepCopyFunction(mg.spawn_points)
 			temp.onJoin(this, join);
 			console.log("joined new game");
 			return;
