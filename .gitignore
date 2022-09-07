@@ -1,1 +1,2 @@
-izvorni_kod/server/node_modules
+src/server/node_modules/
+src/server/package-lock.json

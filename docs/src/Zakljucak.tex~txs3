@@ -1,0 +1,26 @@
+\chapter{Zaključak i budući rad}
+		
+		 {Prva faza projekta započela je okupljanjem projektnog tima i definicijom vlastitog projektnog zadatka.
+		 	Tim je podijeljen na manje podtimove koji su bili specijalizirani za različita područja razvoja. Izrađeni su početni konceptualni prototipi.
+		 	Prototipi su provjereni te se nastavio razvoj na najboljem. Sama igrica koja je razvijena je postavljena na Digital Ocean server te se mogla
+		 	slobodno isprobati.
+		 	
+		 	
+		 	U drugoj fazi razvoj igrice je bio u fokusu te su se dodavale nove značajke. Paralelno se igricu testiralo te su se ispravljali pronađeni problemi.
+		 	Također, u drugoj fazi je dodano i korisničko sučelje za ulaz u igru, te grafika za prijavljivanje i registriranje.
+		 	
+		 	
+		 	U trećoj fazi izgrađena je baza podataka te je izgrađena serverska strana aplikacije. U ovoj fazi je provedeno i testiranje te su dodane završne
+		 	značajke za samu igru.
+		 	
+		 	
+		 	Potencijalna nadogradnja aplikacije je dodavanje drugih modova igre te podrška za druge jezike.
+		 	
+		 	
+		 	U radu na ovom projektu susreli smo se s raznim problemima vezanim uz neiskustvo, manjak vremena članova tima te raznovrsnosti korištenih tehnologija.
+		 	Rad na ovom projektu ponudio nam je nove vještine razvoja web aplikacija te komunikacijske vještine nužno potrebne za rad u timu.}
+	 	
+		
+		 \textit{Potrebno je točno popisati funkcionalnosti koje nisu implementirane u ostvarenoj aplikaciji.}
+		
+		\eject 

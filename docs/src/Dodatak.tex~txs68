@@ -1,0 +1,263 @@
+\chapter*{Dodatak: Prikaz aktivnosti grupe}
+		\addcontentsline{toc}{chapter}{Dodatak: Prikaz aktivnosti grupe}
+		
+		\section*{Dnevnik sastajanja}
+	
+		
+		\begin{packed_enum}
+			\item  sastanak
+			
+			\item[] \begin{packed_item}
+				\item Datum: 2. listopada 2020.
+				\item Prisustvovali: svi članovi
+				\item Teme sastanka:
+				\begin{packed_item}
+					\item brainstorming
+				\end{packed_item}
+			\end{packed_item}
+			
+			\item  sastanak
+			\item[] \begin{packed_item}
+				\item Datum: 5. listopada 2020.
+				\item Prisustvovali: F.Čutura, H.Kristić, B.Kušen, L.Mutvar, T.Pavić, L.Pavlović
+				\item Teme sastanka:
+				\begin{packed_item}
+					\item  1. laboratorijska vježba s asistentom
+				\end{packed_item}
+			\end{packed_item}
+		
+			\item  sastanak
+			\item[] \begin{packed_item}
+				\item Datum: 6. listopada 2020.
+				\item Prisustvovali: F.Čutura, H.Kristić, L.Mutvar, T.Pavić, L.Pavlović
+				\item Teme sastanka:
+				\begin{packed_item}
+					\item  oblikovanje dokumenta vlastitog prijedloga zadatka
+				\end{packed_item}
+			\end{packed_item}
+		
+						\item  sastanak
+			\item[] \begin{packed_item}
+				\item Datum: 7. listopada 2020.
+				\item Prisustvovali: F.Čutura, L.Pavlović
+				\item Teme sastanka:
+				\begin{packed_item}
+					\item  revizija dokumenta 6. listopada
+				\end{packed_item}
+			\end{packed_item}
+		
+						\item  sastanak
+			\item[] \begin{packed_item}
+				\item Datum: 15. listopada 2020.
+				\item Prisustvovali: B.Kušen, F.Čutura, H.Kristić, L.Mutvar, T.Pavić, L.Pavlović
+				\item Teme sastanka:
+				\begin{packed_item}
+					\item  konfiguriranje gita, rasprava o tehnologijama i raspored u radne skupine
+				\end{packed_item}
+			\end{packed_item}
+		
+			\item  sastanak
+			\item[] \begin{packed_item}
+				\item Datum: 19. listopada 2020.
+				\item Prisustvovali: svi članovi
+				\item Teme sastanka:
+				\begin{packed_item}
+					\item  laboratorijska vježba s asistentom
+					\item dogovor o Latex okviru za dokumentaciju te dnevniku sastanaka  
+				\end{packed_item}
+			\end{packed_item}
+		
+		\item  sastanak
+		\item[] \begin{packed_item}
+			\item Datum: 22. listopada 2020.
+			\item Prisustvovali: B.Kušen, F.Čutura, L.Mutvar, L.Pavlović
+			\item Teme sastanka:
+			\begin{packed_item}
+				\item  sastanak uživo 
+				\item razrada daljnjeg razvoja 
+				\item prikaz kocepata igrice
+			\end{packed_item}
+		\end{packed_item}
+	
+			\item  sastanak
+	\item[] \begin{packed_item}
+		\item Datum: 23. listopada 2020.
+		\item Prisustvovali: F.Čutura, H.Kristić, T.Pavić, L.Pavlović
+		\item Teme sastanka:
+		\begin{packed_item}
+			\item  dogovor za grafiku
+			\item demonstracija radne verzije
+		\end{packed_item}
+	\end{packed_item}
+	
+	
+		\item  sastanak
+		\item[] \begin{packed_item}
+			\item Datum: 4.studeni 2020.
+			\item Prisustvovali: T.Pavić, L.Pavlović
+			\item Teme sastanka:
+			\begin{packed_item}
+				\item  zajednički rad na dokumentaciji
+			\end{packed_item}
+		\end{packed_item}
+	
+							\item  sastanak
+	\item[] \begin{packed_item}
+		\item Datum: 6. studeni 2020.
+		\item Prisustvovali: B.Kušen, F.Čutura, H.Kristić, L.Mutvar, T.Pavić, L.Pavlović
+		\item Teme sastanka:
+		\begin{packed_item}
+			\item  planovi za daljnji rad
+			\item raspodjela zadataka oko dovršetka dokuentacije 
+			\item prijenos znanja
+		\end{packed_item}
+	\end{packed_item}
+
+
+		\item  sastanak
+			\item[] \begin{packed_item}
+				\item Datum: 9. studeni 2020.
+				\item Prisustvovali: B.Kušen, F.Čutura, H.Kristić, L.Mutvar, T.Pavić, L.Pavlović
+				\item Teme sastanka:
+				\begin{packed_item}
+					\item  obavezni sastanak s asistentom i stress test implementacije
+				\end{packed_item}
+			\end{packed_item}
+
+				\item  sastanak
+		\item[] \begin{packed_item}
+			\item Datum: 11. studeni 2020.
+			\item Prisustvovali: B.Kušen, F.Čutura, L.Mutvar, T.Pavić, L.Pavlović
+			\item Teme sastanka:
+			\begin{packed_item}
+				\item  rasprava o dijagramu razreda i budućnosti razvoja razreda
+			\end{packed_item}
+		\end{packed_item}
+	
+					\item  sastanak
+	\item[] \begin{packed_item}
+		\item Datum: 1. prosinca 2020.
+		\item Prisustvovali: B.Kušen, F.Čutura, L.Mutvar, H.Kristić, T.Pavić, L.Pavlović
+		\item Teme sastanka:
+		\begin{packed_item}
+			\item  izvještaj o dosadašnjem napretku, dogovor o daljnjem radu
+		\end{packed_item}
+	\end{packed_item}
+
+							\item  sastanak
+		\item[] \begin{packed_item}
+			\item Datum: 30. prosinca 2020.
+			\item Prisustvovali: F.Čutura, L.Mutvar, H.Kristić, T.Pavić, L.Pavlović
+			\item Teme sastanka:
+			\begin{packed_item}
+				\item  raspodjela poslova za daljnji rad
+			\end{packed_item}
+		\end{packed_item}
+	
+			\item  sastanak
+		\item[] \begin{packed_item}
+			\item Datum: 6. siječnja 2021.
+			\item Prisustvovali: B.Kušen, F.Čutura, L.Mutvar, H.Kristić, T.Pavić, L.Pavlović
+			\item Teme sastanka:
+			\begin{packed_item}
+				\item  pregled napravljenog i dogovor za daljnji rad
+			\end{packed_item}
+		\end{packed_item}
+	
+					\item  sastanak
+		\item[] \begin{packed_item}
+			\item Datum: 8. siječnja 2021.
+			\item Prisustvovali: svi članovi
+			\item Teme sastanka:
+			\begin{packed_item}
+				\item  pregled napravljenog
+				\item  dogovor za daljnji rad
+				\item  laboratorijska vježba s asistentom
+			\end{packed_item}
+		\end{packed_item}
+	
+		\item  sastanak
+		\item[] \begin{packed_item}
+			\item Datum: 6. siječnja 2021.
+			\item Prisustvovali: B.Kušen, F.Čutura, L.Mutvar, H.Kristić, T.Pavić, L.Pavlović
+			\item Teme sastanka:
+			\begin{packed_item}
+				\item  pregled napravljenog i dogovor za daljnji rad
+			\end{packed_item}
+		\end{packed_item}
+
+			
+			
+			
+		\end{packed_enum}
+		
+		\eject
+		\section*{Tablica aktivnosti}
+		
+			\textbf{\textit{Kontinuirano osvježavanje}}\\
+			
+			 \textit{Napomena: Doprinose u aktivnostima treba navesti u satima po članovima grupe po aktivnosti.}
+					
+						
+			
+			\begin{longtabu} to \textwidth {|X[7, l]|X[1, c]|X[1, c]|X[1, c]|X[1, c]|X[1, c]|X[1, c]|X[1, c]|}
+								
+				\cline{2-8} \multicolumn{1}{c|}{\textbf{}} &     \multicolumn{1}{c|}{\rotatebox{90}{\textbf{Ime Prezime voditelja }}} & \multicolumn{1}{c|}{\rotatebox{90}{\textbf{Ime Prezime }}} &	\multicolumn{1}{c|}{\rotatebox{90}{\textbf{Ime Prezime }}} &	\multicolumn{1}{c|}{\rotatebox{90}{\textbf{Ime Prezime }}} &
+				\multicolumn{1}{c|}{\rotatebox{90}{\textbf{Ime Prezime }}} &
+				\multicolumn{1}{c|}{\rotatebox{90}{\textbf{Ime Prezime }}} &	\multicolumn{1}{c|}{\rotatebox{90}{\textbf{Ime Prezime }}} \\ \hline 
+				\endfirsthead
+				
+			
+				\cline{2-8} \multicolumn{1}{c|}{\textbf{}} &     \multicolumn{1}{c|}{\rotatebox{90}{\textbf{Ime Prezime voditelja}}} & \multicolumn{1}{c|}{\rotatebox{90}{\textbf{Ime Prezime }}} &	\multicolumn{1}{c|}{\rotatebox{90}{\textbf{Ime Prezime }}} &
+				\multicolumn{1}{c|}{\rotatebox{90}{\textbf{Ime Prezime }}} &	\multicolumn{1}{c|}{\rotatebox{90}{\textbf{Ime Prezime }}} &
+				\multicolumn{1}{c|}{\rotatebox{90}{\textbf{Ime Prezime }}} &	\multicolumn{1}{c|}{\rotatebox{90}{\textbf{Ime Prezime }}} \\ \hline 
+				\endhead
+				
+				
+				\endfoot
+							
+				 
+				\endlastfoot
+				
+				Upravljanje projektom 		&  &  &  &  &  &  & \\ \hline
+				Opis projektnog zadatka 	&  &  &  &  &  &  & \\ \hline
+				
+				Funkcionalni zahtjevi       &  &  &  &  &  &  &  \\ \hline
+				Opis pojedinih obrazaca 	&  &  &  &  &  &  &  \\ \hline
+				Dijagram obrazaca 			&  &  &  &  &  &  &  \\ \hline
+				Sekvencijski dijagrami 		&  &  &  &  &  &  &  \\ \hline
+				Opis ostalih zahtjeva 		&  &  &  &  &  &  &  \\ \hline
+
+				Arhitektura i dizajn sustava	 &  &  &  &  &  &  &  \\ \hline
+				Baza podataka				&  &  &  &  &  &  &   \\ \hline
+				Dijagram razreda 			&  &  &  &  &  &  &   \\ \hline
+				Dijagram stanja				&  &  &  &  &  &  &  \\ \hline
+				Dijagram aktivnosti 		&  &  &  &  &  &  &  \\ \hline
+				Dijagram komponenti			&  &  &  &  &  &  &  \\ \hline
+				Korištene tehnologije i alati 		&  &  &  &  &  &  &  \\ \hline
+				Ispitivanje programskog rješenja 	&  &  &  &  &  &  &  \\ \hline
+				Dijagram razmještaja			&  &  &  &  &  &  &  \\ \hline
+				Upute za puštanje u pogon 		&  &  &  &  &  &  &  \\ \hline 
+				Dnevnik sastajanja 			&  &  &  &  &  &  &  \\ \hline
+				Zaključak i budući rad 		&  &  &  &  &  &  &  \\  \hline
+				Popis literature 			&  &  &  &  &  &  &  \\  \hline
+				&  &  &  &  &  &  &  \\ \hline \hline
+				\textit{Dodatne stavke kako ste podijelili izradu aplikacije} 			&  &  &  &  &  &  &  \\ \hline
+				\textit{npr. izrada početne stranice} 				&  &  &  &  &  &  &  \\ \hline 
+				\textit{izrada baze podataka} 		 			&  &  &  &  &  &  & \\ \hline 
+				\textit{spajanje s bazom podataka} 							&  &  &  &  &  &  &  \\ \hline
+				\textit{back end} 							&  &  &  &  &  &  &  \\  \hline
+				 							&  &  &  &  &  &  &\\  \hline
+				
+				
+			\end{longtabu}
+					
+					
+		\eject
+		\section*{Dijagrami pregleda promjena}
+		
+		\textbf{\textit{dio 2. revizije}}\\
+		
+		\textit{Prenijeti dijagram pregleda promjena nad datotekama projekta. Potrebno je na kraju projekta generirane grafove s gitlaba prenijeti u ovo poglavlje dokumentacije. Dijagrami za vlastiti projekt se mogu preuzeti s gitlab.com stranice, u izborniku Repository, pritiskom na stavku Contributors.}
+		
+	
