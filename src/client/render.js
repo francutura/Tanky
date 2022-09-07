@@ -7,17 +7,17 @@ function clear() {
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 }
 
-function renderUserName(me){
+function renderUserName(me) {
 	ctx.font = "15px Arial"
 	ctx.fillText(me.username, -(window.Constants.PLAYER_WIDTH / 2), -(window.Constants.PLAYER_HEIGHT / 2));
 
 }
 
-function renderTank(me, other){
-	
+function renderTank(me, other) {
+
 	let canvasx = canvas.width / 2 + other.x - me.x;
 	let canvasy = canvas.height / 2 + other.y - me.y;
-	
+
 	ctx.save()
 	ctx.translate(canvasx, canvasy)
 	me === other ? renderUserName(me) : renderUserName(other);
@@ -28,21 +28,21 @@ function renderTank(me, other){
 	rotateCannon(other)
 	ctx.drawImage(getAsset(other.timg), -(window.Constants.PLAYER_WIDTH * 1.75 / 2), -(window.Constants.PLAYER_HEIGHT * 1.75 / 2), window.Constants.PLAYER_WIDTH * 1.75, window.Constants.PLAYER_HEIGHT * 1.75);
 	ctx.restore()
-	
+
 }
 
-function renderProjectile(me, projectile){
+function renderProjectile(me, projectile) {
 	let canvasx = canvas.width / 2 + projectile.x - me.x;
 	let canvasy = canvas.height / 2 + projectile.y - me.y;
 	ctx.save()
 	ctx.translate(canvasx, canvasy)
-	ctx.drawImage(getAsset(projectile.skin),  -window.Constants.PROJECTILE_RADIUS / 2, -window.Constants.PROJECTILE_RADIUS / 2, window.Constants.PROJECTILE_RADIUS, window.Constants.PROJECTILE_RADIUS);
+	ctx.drawImage(getAsset(projectile.skin), -window.Constants.PROJECTILE_RADIUS / 2, -window.Constants.PROJECTILE_RADIUS / 2, window.Constants.PROJECTILE_RADIUS, window.Constants.PROJECTILE_RADIUS);
 	ctx.restore()
 }
 
-function renderHP(me){
+function renderHP(me) {
 	ctx.save()
-	ctx.translate(-window.Constants.PLAYER_WIDTH/2, window.Constants.PLAYER_HEIGHT/2)
+	ctx.translate(-window.Constants.PLAYER_WIDTH / 2, window.Constants.PLAYER_HEIGHT / 2)
 	ctx.fillStyle = 'blue';
 	ctx.fillRect(
 		0,
@@ -58,32 +58,32 @@ function renderHP(me){
 		3,
 	);
 	ctx.restore()
-	}
-
-function rotateBase(player){
-	//TODO move to globals
-	let width = window.Constants.PLAYER_WIDTH;
-	let height = window.Constants.PLAYER_HEIGHT; 
-	let rotation = player.bodya
-	ctx.translate(width/2 - (window.Constants.PLAYER_WIDTH / 2), height/2 - (window.Constants.PLAYER_HEIGHT / 2))
-	ctx.rotate(rotation)
-	ctx.translate(- width/2 + (window.Constants.PLAYER_WIDTH / 2), - height/2 + (window.Constants.PLAYER_HEIGHT / 2))
 }
 
-function rotateCannon(player){
+function rotateBase(player) {
+	//TODO move to globals
 	let width = window.Constants.PLAYER_WIDTH;
-	let height = window.Constants.PLAYER_HEIGHT; 
+	let height = window.Constants.PLAYER_HEIGHT;
+	let rotation = player.bodya
+	ctx.translate(width / 2 - (window.Constants.PLAYER_WIDTH / 2), height / 2 - (window.Constants.PLAYER_HEIGHT / 2))
+	ctx.rotate(rotation)
+	ctx.translate(- width / 2 + (window.Constants.PLAYER_WIDTH / 2), - height / 2 + (window.Constants.PLAYER_HEIGHT / 2))
+}
+
+function rotateCannon(player) {
+	let width = window.Constants.PLAYER_WIDTH;
+	let height = window.Constants.PLAYER_HEIGHT;
 	let rotation = player.cannona
 
-	ctx.translate(width/2 - (window.Constants.PLAYER_WIDTH / 2), height/2 - (window.Constants.PLAYER_HEIGHT / 2))
-	ctx.rotate(rotation + Math.PI/2 - player.bodya)
-	ctx.translate(- width/2 + (window.Constants.PLAYER_WIDTH / 2), - height/2 + (window.Constants.PLAYER_HEIGHT / 2))
+	ctx.translate(width / 2 - (window.Constants.PLAYER_WIDTH / 2), height / 2 - (window.Constants.PLAYER_HEIGHT / 2))
+	ctx.rotate(rotation + Math.PI / 2 - player.bodya)
+	ctx.translate(- width / 2 + (window.Constants.PLAYER_WIDTH / 2), - height / 2 + (window.Constants.PLAYER_HEIGHT / 2))
 }
 // OVO JE ORIGINALNA
 
 function renderMap(me, tileMap) {
-	if (tileMap.length == 0){
-			return
+	if (tileMap.length == 0) {
+		return
 	}
 	var tileX = me.x / window.Constants.TILE_WIDTH
 	var tileY = me.y / window.Constants.TILE_HEIGHT
@@ -100,7 +100,7 @@ function renderMap(me, tileMap) {
 
 			ctx.save()
 			ctx.translate(canvasx, canvasy)
-			if (i >= 0 && i < (Constants.MAP_SIZE / Constants.TILE_HEIGHT) && j >= 0 && j < (Constants.MAP_SIZE / Constants.TILE_WIDTH)){ 
+			if (i >= 0 && i < (Constants.MAP_SIZE / Constants.TILE_HEIGHT) && j >= 0 && j < (Constants.MAP_SIZE / Constants.TILE_WIDTH)) {
 				if (tileMap[i][j] == 1) {
 					ctx.drawImage(getAsset("suhozid.svg"), j * window.Constants.TILE_WIDTH, i * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
 				}
@@ -110,7 +110,7 @@ function renderMap(me, tileMap) {
 				if (tileMap[i][j] == Constants.TRIPLE_SHOT_TYPE) {
 					ctx.drawImage(getAsset("tripleShot.png"), j * window.Constants.TILE_WIDTH, i * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
 				}
-				
+
 				if (tileMap[i][j] == Constants.HEALTH_REGEN_TYPE) {
 					ctx.drawImage(getAsset("healthRegen.png"), j * window.Constants.TILE_WIDTH, i * window.Constants.TILE_HEIGHT, window.Constants.TILE_WIDTH, window.Constants.TILE_HEIGHT)
 				}
@@ -122,35 +122,34 @@ function renderMap(me, tileMap) {
 }
 
 
-function animate(){
+function animate() {
 	canvas = document.querySelector('canvas');
 	ctx = canvas.getContext('2d');
-	//TODO set canvas dimensions 
-	canvas.width = innerWidth;
-	canvas.height = innerHeight;
+	canvas.width = Math.min(950, innerWidth);
+	canvas.height = Math.min(650, innerHeight);
 	animateLoop()
 }
 
 function animateLoop() {
-    requestAnimationFrame(animate);
+	requestAnimationFrame(animate);
 
-    clear();
+	clear();
 	let me = getMyState();
 	let others = getOthersState();
 	let projectiles = getProjectiles();
 	if (me) {
 		// Render ground
-		ctx.drawImage(getAsset("livada.svg"), canvas.width / 2 - me.x, canvas.height / 2 - me.y, window.Constants.MAP_SIZE, window.Constants.MAP_SIZE); 
-		renderMap(me, getMap()) 
+		ctx.drawImage(getAsset("livada.svg"), canvas.width / 2 - me.x, canvas.height / 2 - me.y, window.Constants.MAP_SIZE, window.Constants.MAP_SIZE);
+		renderMap(me, getMap())
 	}
 	renderTank(me, me);
-	Object.values(others).forEach((other) =>{
+	Object.values(others).forEach((other) => {
 		renderTank(me, other);
 	});
-	Object.values(projectiles).forEach((projectile) =>{
+	Object.values(projectiles).forEach((projectile) => {
 		renderProjectile(me, projectile);
 	});
-	
+
 }
 
-export {animate}
+export { animate }

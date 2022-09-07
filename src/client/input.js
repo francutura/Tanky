@@ -131,12 +131,12 @@ function initInput(){
 	addEventListener("keydown", onKeyDown, false);
 	addEventListener("keyup", onKeyUp, false);
 	addEventListener("click", (event) => {
-		let angle = Math.atan2(event.clientY - (canvas.height / 2), event.clientX - (canvas.width / 2))
+		let angle = Math.atan2(event.clientY - (innerHeight / 2), event.clientX - (innerWidth / 2))
 		getSocket().emit('fire', angle)
 	});
 
 	addEventListener("mousemove", e => {
-		let angle = Math.atan2(e.clientY - (canvas.height / 2), e.clientX - (canvas.width / 2))
+		let angle = Math.atan2(e.clientY - (innerHeight / 2), e.clientX - (innerWidth / 2))
 		getSocket().emit('cangle', angle)
 	});
 }

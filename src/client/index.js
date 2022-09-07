@@ -23,7 +23,7 @@ async function start(nickname){
 	socket.on('')
 	await downloadAllAssets();
 	await connect();
-    let addMe = `<div id="leaderboard">` + `<div class="rowic">` +`<div id="name" class="name">Player1</div><div class="score">0</div>` +`</div>` +`</div>` +`<div class="frame">` +`<ul></ul>` +`<input class="mytext" placeholder="Type a message" maxlength="160"/>` +`</div>` +`<canvas id = canvas></canvas>`
+    let addMe = `<div id="leaderboard">` + `<div class="rowic">` +`<div id="name" class="name">Player1</div><div class="score">0</div>` +`</div>` +`</div>` +`<div class="frame">` +`<ul></ul>` +`<input class="mytext" placeholder="Type a message" maxlength="160"/>` +`</div>` +`<canvas id = canvas style="padding-left: 0;padding-right: 0;margin-left: auto;margin-right: auto;display: block;"></canvas>`
 	$("body").append(addMe)
 	$("#removeme").remove()
 	let joinUpdate = {}
