@@ -1,6 +1,6 @@
 # Tanky
 
-# Instalacija
+# Install
 
 `cd izvorni_kod/server`
 
@@ -8,4 +8,4 @@
 
 `npm start`
 
-Server bi trebao biti live na localhost:6969
+Server should be live at localhost:8000

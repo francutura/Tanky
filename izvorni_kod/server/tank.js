@@ -75,7 +75,7 @@ class Tank {
 		this.y = respawn_point.y
 		this.bodya = respawn_point.bodya
 	}
-	
+
 	calculateVertices(x, y, bodya){
 		if(bodya < 0){
 			bodya = bodya + Math.PI * 2
@@ -97,7 +97,7 @@ class Tank {
 		edges[2][1] = Math.ceil((y + hypothenuse * - Math.cos((bodya + angles[2]) % (Math.PI * 2))))
 		edges[3][0] = Math.ceil((x + hypothenuse * Math.sin((bodya + angles[3]) % (Math.PI * 2))))
 		edges[3][1] = Math.ceil((y + hypothenuse * - Math.cos((bodya + angles[3]) % (Math.PI * 2))))
-
+		
 		return edges;
 	}
 
@@ -163,7 +163,6 @@ class Tank {
 	}
 
 	update(dt, map, collectibles){
-
 		if (this.isSanicActive && Date.now() - this.sanicTimeRemaining > 0){
 			this.isSanicActive = false;
 		}
