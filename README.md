@@ -1,13 +1,13 @@
 # Tanky
 
-Tanky is a student project created for the <a href="https://www.fer.unizg.hr/en/course/sofeng">Software Engineering</a> class of 2020/21. It is a simple web based video game in which you control a tank on a playing field trying to gain as many points by destroying other tanks/players. Built with Javascript, NodeJS and socket.io
+Tanky is a student project created for the <a href="https://www.fer.unizg.hr/en/course/sofeng">Software Engineering</a> class of 2020/21. It is a simple web based video game in which you control a tank on a playing field trying to gain as many points by destroying other tanks/players. Built with Javascript, NodeJS and socket.io. No game engine was used so all physics, collision detection and rendering was written in plain javascript from scratch!
 
 <img src="https://i.imgur.com/qkTKX7H.png" width="600" height="350" />
 
 # Live version
 
 A live version can be found at the following <a href="http://104.248.139.238:8000/">link</a>
-enjoy :D
+have fun :D
 
 
 # Install
