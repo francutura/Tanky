@@ -10,7 +10,7 @@ const app = express();
 app.use(express.static('../client'))
 app.use(express.static('../const'))
 
-const port = 6969
+const port = 8000
 const server = app.listen(port);
 console.log(`Server listening on port ${port}`);
 
