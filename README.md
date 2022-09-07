@@ -17,7 +17,7 @@ A local instance of the game can be installed by running the following commands
 `npm install`
 `npm start`
 
-If successfull a server instance should be live at localhost:8000
+If successful a server instance should be live at localhost:8000
 
 
 # Credits
